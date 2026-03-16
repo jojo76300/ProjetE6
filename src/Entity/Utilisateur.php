@@ -6,16 +6,19 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur
+
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 180, unique: true)] // J'ai ajouté unique: true, c'est fortement recommandé pour les emails de connexion
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -97,12 +100,48 @@ class Utilisateur
     public function removeAvoir(Avoir $avoir): static
     {
         if ($this->avoirs->removeElement($avoir)) {
-            // set the owning side to null (unless already changed)
+        
             if ($avoir->getUtilisateur() === $this) {
                 $avoir->setUtilisateur(null);
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Un identifiant visuel qui représente cet utilisateur.
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        // Par défaut, tous les utilisateurs ont le rôle ROLE_USER
+        
+        return ['ROLE_USER'];
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        
+        return $this->mdp;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // Utile uniquement si on stocke temporairement un mot de passe en clair
     }
 }
