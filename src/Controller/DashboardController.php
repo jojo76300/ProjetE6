@@ -17,17 +17,17 @@ class DashboardController extends AbstractController
 //     'etudiants' => [] // On envoie une liste vide, l'erreur disparaîtra
 // ]);
 //     }
-    #[Route('/etudiants', name: 'app_etudiant_index')]
-    public function index(EtudiantRepository $etudiantRepository): Response
-    {
-        // 1. On récupère tous les étudiants en base de données
-        $listeEtudiants = $etudiantRepository->findAll();
+    // #[Route('/etudiants', name: 'app_etudiant_index')]
+    // public function index(EtudiantRepository $etudiantRepository): Response
+    // {
+    //     // 1. On récupère tous les étudiants en base de données
+    //     $listeEtudiants = $etudiantRepository->findAll();
 
-        // 2. On "envoie" la variable au Twig
-        return $this->render('pageDeTest.html.twig', [
-            'etudiants' => $listeEtudiants, // C'est ici que la variable est créée !
-        ]);
-    }
+    //     // 2. On "envoie" la variable au Twig
+    //     return $this->render('pageDeTest.html.twig', [
+    //         'etudiants' => $listeEtudiants, // C'est ici que la variable est créée !
+    //     ]);
+    // }
 
 
     #[Route('/menu-test', name: 'app_menu_test')]
