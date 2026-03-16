@@ -13,11 +13,8 @@
 /phpunit.xml
 /.phpunit.cache/
 ###< phpunit/phpunit ###
-<<<<<<< HEAD
 
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
-=======
->>>>>>> feature/timur
