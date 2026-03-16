@@ -9,6 +9,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class DashboardController extends AbstractController
 {
+    #[Route('/menu-test', name: 'app_menu_test')]
+    public function menuTest(): Response
+    {
+        return $this->render('dashboard/menu_test.html.twig');
+    }
+
     // C'est cette route que le AppAuthenticator va appeler si ROLE_ADMIN
     #[Route('/dashboard/all', name: 'app_dashboard_all')]
     #[IsGranted('ROLE_ADMIN')]

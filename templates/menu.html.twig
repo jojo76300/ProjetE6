@@ -1,0 +1,81 @@
+<style>
+	.sidebar {
+		width: 280px;
+		min-height: 100vh;
+		background: #ffffff;
+		border-right: 1px solid #e5e7eb;
+		padding: 20px 16px;
+		box-sizing: border-box;
+	}
+
+	.sidebar-header {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 28px;
+		padding: 8px;
+	}
+
+	.sidebar-logo {
+		width: 42px;
+		height: 42px;
+		object-fit: contain;
+	}
+
+	.sidebar-title {
+		font-size: 28px;
+		font-weight: 700;
+		line-height: 1;
+		color: #0f172a;
+	}
+
+	.sidebar-nav {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.sidebar-link {
+		display: block;
+		text-decoration: none;
+		color: #334155;
+		font-size: 22px;
+		font-weight: 500;
+		padding: 12px 14px;
+		border-radius: 10px;
+	}
+
+	.sidebar-link:hover {
+		background: #eef2ff;
+		color: #1e293b;
+	}
+
+	.sidebar-link-active {
+		background: #dbeafe;
+		color: #1d4ed8;
+		font-weight: 700;
+	}
+</style>
+
+<aside class="sidebar">
+	<div class="sidebar-header">
+		<img src="{{ asset('images/logo.png') }}" alt="Logo" class="sidebar-logo">
+		<span class="sidebar-title">Suivi des stages</span>
+	</div>
+
+	<nav class="sidebar-nav" aria-label="Navigation principale">
+		{% set dashboardPath = '#' %}
+		{% if is_granted('ROLE_ADMIN') %}
+			{% set dashboardPath = path('app_dashboard_all') %}
+		{% elseif is_granted('ROLE_TEACHER') %}
+			{% set dashboardPath = path('app_dashboard_mystages') %}
+		{% endif %}
+
+		<a class="sidebar-link" href="{{ dashboardPath }}">Dashboard</a>
+		<a class="sidebar-link sidebar-link-active" href="#">Étudiants</a>
+		<a class="sidebar-link" href="#">Entreprises</a>
+		<a class="sidebar-link" href="#">Stages</a>
+		<a class="sidebar-link" href="#">Suivi &amp; visites</a>
+		<a class="sidebar-link" href="#">Exports</a>
+	</nav>
+</aside>
