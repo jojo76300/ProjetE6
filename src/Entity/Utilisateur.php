@@ -10,7 +10,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,19 +17,19 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)] // J'ai ajouté unique: true, c'est fortement recommandé pour les emails de connexion
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $mdp = null;
 
     #[ORM\Column]
-    private ?bool $status = null;
+    private bool $status = true;
 
     /**
      * @var Collection<int, Avoir>
      */
-    #[ORM\OneToMany(targetEntity: Avoir::class, mappedBy: 'utilisateur')]
+    #[ORM\OneToMany(targetEntity: Avoir::class, mappedBy: 'utilisateur', orphanRemoval: true)]
     private Collection $avoirs;
 
     public function __construct()
@@ -51,7 +50,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -63,11 +61,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMdp(string $mdp): static
     {
         $this->mdp = $mdp;
-
         return $this;
     }
 
-    public function isStatus(): ?bool
+    public function isStatus(): bool
     {
         return $this->status;
     }
@@ -75,8 +72,39 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStatus(bool $status): static
     {
         $this->status = $status;
-
         return $this;
+    }
+
+    /* === Méthodes sécurité Symfony === */
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->mdp;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // rien à effacer
+    }
+
+    // Si tu veux continuer à utiliser le champ json roles, tu peux le remettre,
+    // mais ta BDD actuelle n'a pas de colonne roles => on s'appuie sur Avoir/Role.
+
+    public function getRoles(): array
+    {
+        // à partir des rôles liés via Avoir
+        $roles = ['ROLE_USER'];
+
+        foreach ($this->avoirs as $avoir) {
+            $roles[] = $avoir->getRole()->getSymfonyRole();
+        }
+
+        return array_unique($roles);
     }
 
     /**
@@ -100,48 +128,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeAvoir(Avoir $avoir): static
     {
         if ($this->avoirs->removeElement($avoir)) {
-        
             if ($avoir->getUtilisateur() === $this) {
                 $avoir->setUtilisateur(null);
             }
         }
 
         return $this;
-    }
-
-    /**
-     * Un identifiant visuel qui représente cet utilisateur.
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        // Par défaut, tous les utilisateurs ont le rôle ROLE_USER
-        
-        return ['ROLE_USER'];
-    }
-
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        
-        return $this->mdp;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // Utile uniquement si on stocke temporairement un mot de passe en clair
     }
 }

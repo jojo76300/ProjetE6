@@ -34,7 +34,6 @@ class Avoir
     public function setUtilisateur(?Utilisateur $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
-
         return $this;
     }
 
@@ -46,7 +45,6 @@ class Avoir
     public function setRole(?Role $role): static
     {
         $this->role = $role;
-
         return $this;
     }
 }

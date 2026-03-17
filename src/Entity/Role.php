@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RoleRepository::class)]
@@ -19,13 +18,13 @@ class Role
     #[ORM\Column(length: 50)]
     private ?string $libelle = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
     /**
      * @var Collection<int, Avoir>
      */
-    #[ORM\OneToMany(targetEntity: Avoir::class, mappedBy: 'role')]
+    #[ORM\OneToMany(targetEntity: Avoir::class, mappedBy: 'role', orphanRemoval: true)]
     private Collection $avoirs;
 
     public function __construct()
@@ -46,7 +45,6 @@ class Role
     public function setLibelle(string $libelle): static
     {
         $this->libelle = $libelle;
-
         return $this;
     }
 
@@ -58,8 +56,21 @@ class Role
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
+    }
+
+    /**
+     * Retourne le rôle Symfony correspondant, par exemple:
+     * Administrateur -> ROLE_ADMIN
+     */
+    public function getSymfonyRole(): string
+    {
+        // simple mapping basé sur le libellé de ta BDD
+        return match (trim($this->libelle)) {
+            'Administrateur' => 'ROLE_ADMIN',
+            'Professeur'     => 'ROLE_TEACHER',
+            default          => 'ROLE_USER',
+        };
     }
 
     /**
@@ -83,7 +94,6 @@ class Role
     public function removeAvoir(Avoir $avoir): static
     {
         if ($this->avoirs->removeElement($avoir)) {
-            // set the owning side to null (unless already changed)
             if ($avoir->getRole() === $this) {
                 $avoir->setRole(null);
             }
