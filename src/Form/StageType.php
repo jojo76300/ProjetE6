@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Entreprise;
+use App\Entity\Etudiant;
 use App\Entity\Stage;
 use App\Entity\Utilisateur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,17 +18,23 @@ class StageType extends AbstractType
         $builder
             ->add('dateDebut')
             ->add('dateFin')
+            ->add('etudiant', EntityType::class, [
+                'class' => Etudiant::class,
+                'choice_label' => function (Etudiant $etudiant) {
+                    return $etudiant->getPrenom() . ' ' . $etudiant->getNom();
+                },
+            ])
             ->add('entreprise', EntityType::class, [
                 'class' => Entreprise::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
             ])
             ->add('profSuivi', EntityType::class, [
                 'class' => Utilisateur::class,
-                'choice_label' => 'id',
+                'choice_label' => 'email',
             ])
             ->add('profVisite', EntityType::class, [
                 'class' => Utilisateur::class,
-                'choice_label' => 'id',
+                'choice_label' => 'email',
             ])
         ;
     }

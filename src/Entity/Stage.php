@@ -32,6 +32,10 @@ class Stage
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $profVisite = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Etudiant $etudiant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +97,18 @@ class Stage
     public function setProfVisite(?Utilisateur $profVisite): static
     {
         $this->profVisite = $profVisite;
+
+        return $this;
+    }
+
+    public function getEtudiant(): ?Etudiant
+    {
+        return $this->etudiant;
+    }
+
+    public function setEtudiant(?Etudiant $etudiant): static
+    {
+        $this->etudiant = $etudiant;
 
         return $this;
     }

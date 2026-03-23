@@ -17,8 +17,17 @@ final class StageController extends AbstractController
     #[Route(name: 'app_stage_index', methods: ['GET'])]
     public function index(StageRepository $stageRepository): Response
     {
+        $stages = $stageRepository->findAll();
+        
+        // Compter les entreprises uniques
+        $entreprisesUniques = [];
+        foreach ($stages as $stage) {
+            $entreprisesUniques[$stage->getEntreprise()->getId()] = $stage->getEntreprise();
+        }
+        
         return $this->render('stage/index.html.twig', [
-            'stages' => $stageRepository->findAll(),
+            'stages' => $stages,
+            'nombreEntreprises' => count($entreprisesUniques),
         ]);
     }
 
