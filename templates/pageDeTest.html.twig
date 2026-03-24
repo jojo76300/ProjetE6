@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Étudiants{% endblock %}
+
+{% block body %}
+<div class="flex min-h-screen">
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col">
+        <div class="p-6 flex items-center gap-3">
+            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1 class="font-bold text-lg tracking-tight">Suivi stages</h1>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-1">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 {{ app.request.get('_route') == 'app_dashboard' ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-slate-600 hover:bg-slate-50' }} rounded-xl transition">
+                <i class="fas fa-th-large w-5"></i> Dashboard
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 {{ app.request.get('_route') == 'app_etudiant_index' ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-slate-600 hover:bg-slate-50' }} rounded-xl transition">
+                <i class="fas fa-users w-5"></i> Étudiants
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl transition">
+                <i class="fas fa-building w-5"></i> Entreprises
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col">
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-end px-8 gap-6">
+            <span class="text-sm font-medium text-slate-500 italic">{{ app.user.email ?? 'Utilisateur' }}</span>
+            <a href="#" class="flex items-center gap-2 text-slate-600 hover:text-red-600 transition font-medium">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </a>
+        </header>
+
+        <div class="p-8 max-w-6xl w-full mx-auto">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">Gestion des étudiants</h2>
+                    <p class="text-slate-500 mt-1">Liste des élèves inscrits en BTS SIO</p>
+                </div>
+                <a href="#" class="bg-black hover:bg-slate-800 text-white px-6 py-2.5 rounded-lg font-medium flex items-center gap-2 transition shadow-sm">
+                    <i class="fas fa-plus"></i> Ajouter un étudiant
+                </a>
+            </div>
+
+            <div class="relative mb-6">
+                <form method="get" action="#">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" name="q" value="{{ app.request.query.get('q') }}" placeholder="Rechercher un nom ou un prénom..." 
+                           class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition shadow-sm">
+                </form>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="px-6 py-4 font-semibold text-slate-700">Nom</th>
+                            <th class="px-6 py-4 font-semibold text-slate-700">Prénom</th>
+                            <th class="px-6 py-4 font-semibold text-slate-700">Filière</th>
+                            <th class="px-6 py-4 font-semibold text-slate-700">Promotion</th>
+                            <th class="px-6 py-4 font-semibold text-slate-700 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {% for etudiant in etudiants %}
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-6 py-4 font-medium text-slate-900 capitalize">{{ etudiant.nom }}</td>
+                                <td class="px-6 py-4 text-slate-600">{{ etudiant.prenom }}</td>
+                                <td class="px-6 py-4">
+                                    {% if etudiant.filiere == 'SLAM' %}
+                                        <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Slam</span>
+                                    {% else %}
+                                        <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Sisr</span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 text-slate-600 text-sm italic">{{ etudiant.annPromotion }}</td>
+                                <td class="px-6 py-4 text-right flex justify-end gap-3">
+                                    <a href="#" class="text-indigo-600 hover:bg-indigo-50 p-2 rounded-lg transition" title="Modifier">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    
+                                    {# Formulaire de suppression sécurisé (CSRF) #}
+                                    <form method="post" action="#" onsubmit="return confirm('Supprimer cet étudiant ?');" style="display:inline-block">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ etudiant.id) }}">
+                                        <button class="text-red-400 hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="px-6 py-12 text-center text-slate-400">
+                                    <i class="fas fa-user-slash block text-3xl mb-3"></i>
+                                    Aucun étudiant trouvé.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

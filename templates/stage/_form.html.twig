@@ -1,0 +1,85 @@
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    <div class="space-y-4">
+        {% if form.etudiant is defined %}
+            <div>
+                {{ form_label(form.etudiant, "Étudiant", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.etudiant, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {% if form.etudiant.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.etudiant) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if form.dateDebut is defined %}
+            <div>
+                {{ form_label(form.dateDebut, "Date de début", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.dateDebut, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {% if form.dateDebut.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.dateDebut) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if form.dateFin is defined %}
+            <div>
+                {{ form_label(form.dateFin, "Date de fin", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.dateFin, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {% if form.dateFin.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.dateFin) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if form.entreprise is defined %}
+            <div>
+                {{ form_label(form.entreprise, "Entreprise", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.entreprise, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {% if form.entreprise.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.entreprise) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if form.profSuivi is defined %}
+            <div>
+                {{ form_label(form.profSuivi, "Professeur suivi", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.profSuivi, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {% if form.profSuivi.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.profSuivi) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if form.profVisite is defined %}
+            <div>
+                {{ form_label(form.profVisite, "Professeur visite", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.profVisite, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {% if form.profVisite.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.profVisite) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="flex gap-3 pt-6 border-t border-gray-200">
+        <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+            <i class="fas fa-save"></i>{{ button_label|default('Enregistrer') }}
+        </button>
+        <a href="{{ path('app_stage_index') }}" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 text-center flex items-center justify-center gap-2">
+            <i class="fas fa-times"></i>Annuler
+        </a>
+    </div>
+
+{{ form_end(form) }}

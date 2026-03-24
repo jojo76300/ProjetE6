@@ -34,9 +34,23 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Avoir::class, mappedBy: 'utilisateur')]
     private Collection $avoirs;
 
+    /**
+     * @var Collection<int, Stage>
+     */
+    #[ORM\OneToMany(targetEntity: Stage::class, mappedBy: 'profSuivi')]
+    private Collection $stagesSuivi;
+
+    /**
+     * @var Collection<int, Stage>
+     */
+    #[ORM\OneToMany(targetEntity: Stage::class, mappedBy: 'profVisite')]
+    private Collection $stagesVisite;
+
     public function __construct()
     {
         $this->avoirs = new ArrayCollection();
+        $this->stagesSuivi = new ArrayCollection();
+        $this->stagesVisite = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -100,12 +114,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeAvoir(Avoir $avoir): static
     {
-        if ($this->avoirs->removeElement($avoir)) {
-        
-            if ($avoir->getUtilisateur() === $this) {
-                $avoir->setUtilisateur(null);
-            }
-        }
+        $this->avoirs->removeElement($avoir);
 
         return $this;
     }
@@ -144,5 +153,55 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // Utile uniquement si on stocke temporairement un mot de passe en clair
+    }
+
+    /**
+     * @return Collection<int, Stage>
+     */
+    public function getStagesSuivi(): Collection
+    {
+        return $this->stagesSuivi;
+    }
+
+    public function addStageSuivi(Stage $stage): static
+    {
+        if (!$this->stagesSuivi->contains($stage)) {
+            $this->stagesSuivi->add($stage);
+            $stage->setProfSuivi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStageSuivi(Stage $stage): static
+    {
+        $this->stagesSuivi->removeElement($stage);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stage>
+     */
+    public function getStagesVisite(): Collection
+    {
+        return $this->stagesVisite;
+    }
+
+    public function addStageVisite(Stage $stage): static
+    {
+        if (!$this->stagesVisite->contains($stage)) {
+            $this->stagesVisite->add($stage);
+            $stage->setProfVisite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStageVisite(Stage $stage): static
+    {
+        $this->stagesVisite->removeElement($stage);
+
+        return $this;
     }
 }
