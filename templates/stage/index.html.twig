@@ -43,7 +43,7 @@
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Étudiant</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Entreprise</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Période</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Tuteur</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Prof. Visite</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Prof. Suivi</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Statut</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Actions</th>
@@ -61,7 +61,7 @@
                                 <td class="px-6 py-4 text-sm text-gray-600">
                                     {{ stage.dateDebut|date('d/m/Y') }} - {{ stage.dateFin|date('d/m/Y') }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profSuivi.email|replace({'@school.fr': ''}) }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profVisite.email|replace({'@school.fr': ''}) }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profSuivi.email|replace({'@school.fr': ''}) }}</td>
                                 <td class="px-6 py-4 text-sm">
                                     {% if isActive %}
