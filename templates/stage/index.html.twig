@@ -43,7 +43,7 @@
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Étudiant</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Entreprise</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Période</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Tuteur</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Prof. Visite</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Prof. Suivi</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Statut</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Actions</th>
@@ -51,7 +51,8 @@
                     </thead>
                     <tbody>
                         {% for stage in stages %}
-                            {% set isActive = stage.dateDebut <= 'now'|date('Y-m-d') and stage.dateFin >= 'now'|date('Y-m-d') %}
+                            {# Le isActive est temporaire le temps de le rajouter dans la base de données #}
+                            {% set isActive = stage.dateDebut|date('Y-m-d') <= 'now'|date('Y-m-d') and stage.dateFin|date('Y-m-d') >= 'now'|date('Y-m-d') %}
                             <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors searchable-row" data-search="{{ stage.entreprise.nom|lower }} {{ stage.profSuivi.email|lower }} {{ stage.dateDebut|date('Y-m-d')|lower }}">
                                 <td class="px-6 py-4 text-sm text-gray-900">
                                     <div class="font-medium">{{ stage.etudiant.prenom }} {{ stage.etudiant.nom }}</div>
@@ -61,7 +62,7 @@
                                 <td class="px-6 py-4 text-sm text-gray-600">
                                     {{ stage.dateDebut|date('d/m/Y') }} - {{ stage.dateFin|date('d/m/Y') }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profSuivi.email|replace({'@school.fr': ''}) }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profVisite.email|replace({'@school.fr': ''}) }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profSuivi.email|replace({'@school.fr': ''}) }}</td>
                                 <td class="px-6 py-4 text-sm">
                                     {% if isActive %}
@@ -79,13 +80,12 @@
                                         <a href="{{ path('app_stage_edit', {'id': stage.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
                                             <i class="fas fa-edit text-lg"></i>
                                         </a>
-                                        <button 
-                                            class="text-red-600 hover:text-red-800 transition-colors delete-btn"
-                                            data-stage-id="{{ stage.id }}"
-                                            onclick="confirmDelete({{ stage.id }}, '{{ stage.entreprise.nom|escape('js') }}')"
-                                        >
-                                            <i class="fas fa-trash text-lg"></i>
-                                        </button>
+                                        <form method="post" action="{{ path('app_stage_delete', {'id': stage.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer le stage chez {{ stage.entreprise.nom|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ stage.id) }}">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 transition-colors">
+                                                <i class="fas fa-trash text-lg"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -106,11 +106,6 @@
     </div>
 </div>
 
-<!-- Delete Form Modal (hidden) -->
-<div id="deleteForm" style="display:none;">
-    <form id="deletionForm" method="POST" style="display:none;"></form>
-</div>
-
 <script>
 document.getElementById('searchInput').addEventListener('keyup', function() {
     const searchTerm = this.value.toLowerCase();
@@ -125,22 +120,5 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
         }
     });
 });
-
-function confirmDelete(stageId, empreseName) {
-    if (confirm(`Êtes-vous sûr de vouloir supprimer le stage chez ${empreseName}? Cette action est irréversible.`)) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '{{ path('app_stage_delete', {'id': '___ID___'}) }}'.replace('___ID___', stageId);
-        
-        const tokenInput = document.createElement('input');
-        tokenInput.type = 'hidden';
-        tokenInput.name = '_token';
-        tokenInput.value = '{{ csrf_token('delete' ~ '___ID___')|raw }}'.replace('___ID___', stageId);
-        
-        form.appendChild(tokenInput);
-        document.body.appendChild(form);
-        form.submit();
-    }
-}
 </script>
 {% endblock %}

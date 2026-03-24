@@ -19,7 +19,6 @@ final class StageController extends AbstractController
     {
         $stages = $stageRepository->findAll();
         
-        // Compter les entreprises uniques
         $entreprisesUniques = [];
         foreach ($stages as $stage) {
             $entreprisesUniques[$stage->getEntreprise()->getId()] = $stage->getEntreprise();
