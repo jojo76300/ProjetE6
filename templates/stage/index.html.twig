@@ -79,13 +79,12 @@
                                         <a href="{{ path('app_stage_edit', {'id': stage.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
                                             <i class="fas fa-edit text-lg"></i>
                                         </a>
-                                        <button 
-                                            class="text-red-600 hover:text-red-800 transition-colors delete-btn"
-                                            data-stage-id="{{ stage.id }}"
-                                            onclick="confirmDelete({{ stage.id }}, '{{ stage.entreprise.nom|escape('js') }}')"
-                                        >
-                                            <i class="fas fa-trash text-lg"></i>
-                                        </button>
+                                        <form method="post" action="{{ path('app_stage_delete', {'id': stage.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer le stage chez {{ stage.entreprise.nom|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ stage.id) }}">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 transition-colors">
+                                                <i class="fas fa-trash text-lg"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -106,11 +105,6 @@
     </div>
 </div>
 
-<!-- Delete Form Modal (hidden) -->
-<div id="deleteForm" style="display:none;">
-    <form id="deletionForm" method="POST" style="display:none;"></form>
-</div>
-
 <script>
 document.getElementById('searchInput').addEventListener('keyup', function() {
     const searchTerm = this.value.toLowerCase();
@@ -125,22 +119,5 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
         }
     });
 });
-
-function confirmDelete(stageId, empreseName) {
-    if (confirm(`Êtes-vous sûr de vouloir supprimer le stage chez ${empreseName}? Cette action est irréversible.`)) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '{{ path('app_stage_delete', {'id': '___ID___'}) }}'.replace('___ID___', stageId);
-        
-        const tokenInput = document.createElement('input');
-        tokenInput.type = 'hidden';
-        tokenInput.name = '_token';
-        tokenInput.value = '{{ csrf_token('delete' ~ '___ID___')|raw }}'.replace('___ID___', stageId);
-        
-        form.appendChild(tokenInput);
-        document.body.appendChild(form);
-        form.submit();
-    }
-}
 </script>
 {% endblock %}
