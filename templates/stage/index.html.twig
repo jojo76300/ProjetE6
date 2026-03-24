@@ -51,7 +51,8 @@
                     </thead>
                     <tbody>
                         {% for stage in stages %}
-                            {% set isActive = stage.dateDebut <= 'now'|date('Y-m-d') and stage.dateFin >= 'now'|date('Y-m-d') %}
+                            {# Le isActive est temporaire le temps de le rajouter dans la base de données #}
+                            {% set isActive = stage.dateDebut|date('Y-m-d') <= 'now'|date('Y-m-d') and stage.dateFin|date('Y-m-d') >= 'now'|date('Y-m-d') %}
                             <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors searchable-row" data-search="{{ stage.entreprise.nom|lower }} {{ stage.profSuivi.email|lower }} {{ stage.dateDebut|date('Y-m-d')|lower }}">
                                 <td class="px-6 py-4 text-sm text-gray-900">
                                     <div class="font-medium">{{ stage.etudiant.prenom }} {{ stage.etudiant.nom }}</div>
