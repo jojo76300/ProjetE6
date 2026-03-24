@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique des Changements{% endblock %}
+
+{% block body %}
+    <h1>Historique des Changements</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Entité</th>
+                <th>Action</th>
+                <th>Utilisateur</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history in histories %}
+                <tr>
+                    <td>{{ history.id }}</td>
+                    <td>{{ history.entity }}</td>
+                    <td>{{ history.action }}</td>
+                    <td>{{ history.user.username }}</td>
+                    <td>{{ history.createdAt|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucun historique trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

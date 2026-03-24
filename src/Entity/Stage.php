@@ -5,8 +5,12 @@ namespace App\Entity;
 use App\Repository\StageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Talleu\TriggerMapping\Attribute\Trigger;
 
 #[ORM\Entity(repositoryClass: StageRepository::class)]
+#[Trigger(name: 'Tri_Archive_Stage_Ajout', on: ['INSERT'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveStageAjout')]
+#[Trigger(name: 'Tri_Archive_Stage_Modification', on: ['UPDATE'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveStageModification')]
+#[Trigger(name: 'Tri_Archive_Stage_Suppression', on: ['DELETE'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveStageSuppression')]
 class Stage
 {
     #[ORM\Id]

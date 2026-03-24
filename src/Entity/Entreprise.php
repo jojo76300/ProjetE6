@@ -6,8 +6,12 @@ use App\Repository\EntrepriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Talleu\TriggerMapping\Attribute\Trigger;
 
 #[ORM\Entity(repositoryClass: EntrepriseRepository::class)]
+#[Trigger(name: 'Tri_Archive_Entreprise_Ajout', on: ['INSERT'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveEntrepriseAjout')]
+#[Trigger(name: 'Tri_Archive_Entreprise_Modification', on: ['UPDATE'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveEntrepriseModification')]
+#[Trigger(name: 'Tri_Archive_Entreprise_Suppression', on: ['DELETE'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveEntrepriseSuppression')]
 class Entreprise
 {
     #[ORM\Id]

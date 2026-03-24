@@ -3,14 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\EtudiantRepository;
-use App\Triggers\TriHistoriqueEtudiantAjout;
 use Doctrine\ORM\Mapping as ORM;
 use Talleu\TriggerMapping\Attribute\Trigger;
 
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
-#[Trigger(name: 'Tri_Historique_Etudiant_Ajout', on: ['INSERT'], when: 'AFTER', scope: 'ROW', className: TriHistoriqueEtudiantAjout::class)]
-#[Trigger(name: 'Tri_Historique_Etudiant_Modification', on: ['UPDATE'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriHistoriqueEtudiantModification')]
-#[Trigger(name: 'Tri_Historique_Etudiant_Suppression', on: ['DELETE'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriHistoriqueEtudiantSuppression')]
 #[Trigger(name: 'Tri_Archive_Etudiant_Modification', on: ['UPDATE'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveEtudiantModification')]
 #[Trigger(name: 'Tri_Archive_Etudiant_Suppression', on: ['DELETE'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveEtudiantSuppression')]
 #[Trigger(name: 'Tri_Archive_Etudiant_Ajout', on: ['INSERT'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveEtudiantAjout')]

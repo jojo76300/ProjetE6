@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\History;
+use App\Repository\HistoryRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Doctrine\Persistence\ManagerRegistry;
+class HistoryController extends AbstractController
+{
+    #[Route('/history', name: 'app_history')]
+    // #[IsGranted('ROLE_ADMIN')]
+    public function index(HistoryRepository $historyRepository): Response
+    {
+        $histories = $historyRepository->findAll();
+
+        return $this->render('history/index.html.twig', [
+            'histories' => $histories,
+        ]);
+    }
+}

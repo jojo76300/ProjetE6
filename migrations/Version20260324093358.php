@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20260323085503 extends AbstractMigration
+final class Version20260324093358 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,13 +21,13 @@ final class Version20260323085503 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         // This migration get the trigger SQL by calling the static methods of your trigger class or reads the SQL from files.
-        $this->addSql(\App\Triggers\TriArchiveEtudiantModification::getTrigger());
+        $this->addSql(\App\Triggers\TriArchiveStageModification::getTrigger());
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         // Reverting this migration will drop the trigger and function.
-        $this->addSql("DROP TRIGGER IF EXISTS Tri_Archive_Etudiant_Modification;");
+        $this->addSql("DROP TRIGGER IF EXISTS Tri_Archive_Stage_Modification;");
     }
 }
