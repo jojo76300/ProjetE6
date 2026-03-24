@@ -319,6 +319,15 @@
             "./config/packages/messenger.yaml"
         ]
     },
+    "talleu/trigger-mapping": {
+        "version": "0.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "ca2abe4a7ccd883c3284ac28c515e189214c46ff"
+        }
+    },
     "twig/extra-bundle": {
         "version": "v3.23.0"
     }

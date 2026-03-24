@@ -1511,6 +1511,15 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         },
  *     }>,
  * }
+ * @psalm-type TriggerMappingConfig = array{
+ *     storage?: array{
+ *         type?: "sql"|"php"|Param, // Determines whether triggers are stored in SQL (.sql files) or PHP (static functions). // Default: "php"
+ *         namespace?: scalar|Param|null, // Determines the namespace for triggers classes. // Default: "App\\Triggers"
+ *         directory?: scalar|Param|null, // Directory where triggers/functions are stored, depending on the selected type. // Default: "%kernel.project_dir%/triggers"
+ *     },
+ *     migrations?: bool|Param, // Whether to automatically generate migrations for triggers. // Default: true
+ *     excludes?: list<scalar|Param|null>,
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1524,6 +1533,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     twig_extra?: TwigExtraConfig,
  *     security?: SecurityConfig,
  *     monolog?: MonologConfig,
+ *     trigger_mapping?: TriggerMappingConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -1540,6 +1550,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
+ *         trigger_mapping?: TriggerMappingConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -1554,6 +1565,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
+ *         trigger_mapping?: TriggerMappingConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -1569,6 +1581,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
+ *         trigger_mapping?: TriggerMappingConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,
