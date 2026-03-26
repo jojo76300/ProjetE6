@@ -11,7 +11,7 @@ class TriArchiveEntrepriseSuppression implements MySQLTriggerInterface
         return <<<SQL
             CREATE TRIGGER Tri_Archive_Entreprise_Suppression AFTER DELETE ON entreprise FOR EACH ROW
                 BEGIN
-                    INSERT INTO archiveentreprise (identreprise, type, nomold, adresseold, villeold, cpold, contactold, telold, emailold, datechangement)
+                    INSERT INTO archive_entreprise (id_entreprise, type, nom_old, adresse_old, ville_old, cp_old, contact_old, tel_old, email_old, date_changement)
                     VALUES (OLD.id, 'Suppression', OLD.nom, OLD.adresse, OLD.ville, OLD.cp, OLD.contact, OLD.tel, OLD.email, NOW());
                 END
             SQL;

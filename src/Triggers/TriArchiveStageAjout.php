@@ -11,8 +11,8 @@ class TriArchiveStageAjout implements MySQLTriggerInterface
         return <<<SQL
             CREATE TRIGGER Tri_Archive_Stage_Ajout AFTER INSERT ON stage FOR EACH ROW
                 BEGIN
-                    INSERT INTO archivestage (idstage, type, date_debutnew, date_finnew, entreprise_idnew, prof_suivi_idnew, prof_visite_idnew, etudiant_idnew, datechangement)
-                    VALUES (new.id, 'Ajout', new.date_debut, new.date_fin, new.entreprise_id, new.prof_suivi_id, new.prof_visite_id, new.etudiant_id, NOW());
+                    INSERT INTO archive_stage (id_stage, type, date_debut_new, date_fin_new, entreprise_id_new, prof_suivi_id_new, prof_visite_id_new, etudiant_id_new, date_changement)
+                    VALUES (NEW.id, 'Ajout', NEW.date_debut, NEW.date_fin, NEW.entreprise_id, NEW.prof_suivi_id, NEW.prof_visite_id, NEW.etudiant_id, NOW());
                 END
             SQL;
     }

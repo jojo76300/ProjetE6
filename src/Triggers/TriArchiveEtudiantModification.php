@@ -11,8 +11,8 @@ class TriArchiveEtudiantModification implements MySQLTriggerInterface
         return <<<SQL
             CREATE TRIGGER Tri_Archive_Etudiant_Modification AFTER UPDATE ON etudiant FOR EACH ROW
                 BEGIN
-                    INSERT INTO archiveetudiant (idetudiant, type, nomold, nomnew, prenomold, prenomnew, filiereold, filierenew, ann_promotionold, ann_promotionnew, is_archivedold, is_archivednew, datechangement)
-                    VALUES (new.id, 'Modification', old.nom, new.nom, old.prenom, new.prenom, old.filiere, new.filiere, old.ann_promotion, new.ann_promotion, old.is_archived, new.is_archived, NOW());
+                    INSERT INTO archive_etudiant (id_etudiant, type, nom_old, nom_new, prenom_old, prenom_new, filiere_old, filiere_new, ann_promotion_old, ann_promotion_new, is_archived_old, is_archived_new, date_changement)
+                    VALUES (NEW.id, 'Modification', OLD.nom, NEW.nom, OLD.prenom, NEW.prenom, OLD.filiere, NEW.filiere, OLD.ann_promotion, NEW.ann_promotion, OLD.is_archived, NEW.is_archived, NOW());
                 END
             SQL;
     }
