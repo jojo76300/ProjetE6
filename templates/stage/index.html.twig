@@ -51,7 +51,8 @@
                     </thead>
                     <tbody>
                         {% for stage in stages %}
-                            {# Le isActive est temporaire le temps de le rajouter dans la base de données #}
+                            {# Le isActive et isUpcoming est temporaire le temps de le rajouter dans la base de données #}
+                            {% set isUpcoming = stage.dateDebut|date('Y-m-d') > 'now'|date('Y-m-d') %}
                             {% set isActive = stage.dateDebut|date('Y-m-d') <= 'now'|date('Y-m-d') and stage.dateFin|date('Y-m-d') >= 'now'|date('Y-m-d') %}
                             <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors searchable-row" data-search="{{ stage.entreprise.nom|lower }} {{ stage.profSuivi.email|lower }} {{ stage.dateDebut|date('Y-m-d')|lower }}">
                                 <td class="px-6 py-4 text-sm text-gray-900">
@@ -65,12 +66,16 @@
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profVisite.email|replace({'@school.fr': ''}) }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profSuivi.email|replace({'@school.fr': ''}) }}</td>
                                 <td class="px-6 py-4 text-sm">
-                                    {% if isActive %}
+                                    {% if isUpcoming %}
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-800">
+                                            À venir
+                                        </span>
+                                    {% elseif isActive %}
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
                                             En cours
                                         </span>
                                     {% else %}
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-800">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
                                             Terminé
                                         </span>
                                     {% endif %}
