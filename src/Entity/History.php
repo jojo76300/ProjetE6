@@ -14,14 +14,16 @@ class History
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: ArchiveEtudiant::class)]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(name: 'idarchiveetudiant', referencedColumnName: 'id', nullable: true)]
     private ?ArchiveEtudiant $archiveEtudiant = null;
 
-    #[ORM\Column]
-    private ?int $idArchiveEntreprise = null;
+    #[ORM\ManyToOne(targetEntity: ArchiveEntreprise::class)]
+    #[ORM\JoinColumn(name: 'idarchiveentreprise', referencedColumnName: 'id', nullable: true)]
+    private ?ArchiveEntreprise $archiveEntreprise = null;
 
-    #[ORM\Column]
-    private ?int $idArchiveStage = null;
+    #[ORM\ManyToOne(targetEntity: ArchiveStage::class)]
+    #[ORM\JoinColumn(name: 'idarchivestage', referencedColumnName: 'id', nullable: true)]
+    private ?ArchiveStage $archiveStage = null;
 
     public function getId(): ?int
     {
@@ -40,26 +42,26 @@ class History
         return $this;
     }
 
-    public function getIdArchiveEntreprise(): ?int
+    public function getArchiveEntreprise(): ?ArchiveEntreprise
     {
-        return $this->idArchiveEntreprise;
+        return $this->archiveEntreprise;
     }
 
-    public function setIdArchiveEntreprise(int $idArchiveEntreprise): static
+    public function setArchiveEntreprise(?ArchiveEntreprise $archiveEntreprise): static
     {
-        $this->idArchiveEntreprise = $idArchiveEntreprise;
+        $this->archiveEntreprise = $archiveEntreprise;
 
         return $this;
     }
 
-    public function getIdArchiveStage(): ?int
+    public function getArchiveStage(): ?ArchiveStage
     {
-        return $this->idArchiveStage;
+        return $this->archiveStage;
     }
 
-    public function setIdArchiveStage(int $idArchiveStage): static
+    public function setArchiveStage(?ArchiveStage $archiveStage): static
     {
-        $this->idArchiveStage = $idArchiveStage;
+        $this->archiveStage = $archiveStage;
 
         return $this;
     }

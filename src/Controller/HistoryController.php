@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\History;
 use App\Repository\HistoryRepository;
+use App\Repository\ArchiveEtudiantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

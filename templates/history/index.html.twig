@@ -9,20 +9,18 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Entité</th>
-                <th>Action</th>
-                <th>Utilisateur</th>
-                <th>Date</th>
+                <th>ID Entreprise</th>
+                <th>ID Etudiant</th>
+                <th>ID Stage</th>
             </tr>
         </thead>
         <tbody>
             {% for history in histories %}
                 <tr>
                     <td>{{ history.id }}</td>
-                    <td>{{ history.entity }}</td>
-                    <td>{{ history.action }}</td>
-                    <td>{{ history.user.username }}</td>
-                    <td>{{ history.createdAt|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ history.archiveEntreprise ? history.archiveEntreprise.id : '' }}</td>
+                    <td>{{ history.archiveEtudiant ? history.archiveEtudiant.nomold ~ ' ' ~ history.archiveEtudiant.prenomold : '' }}</td>
+                    <td>{{ history.archiveStage ? history.archiveStage.id : '' }}</td>
                 </tr>
             {% else %}
                 <tr>
