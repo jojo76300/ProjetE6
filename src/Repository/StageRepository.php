@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Stage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @extends ServiceEntityRepository<Stage>
@@ -14,6 +16,21 @@ class StageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Stage::class);
+    }
+
+    public function findAllOrderBy(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.etudiant', 'e')->addSelect('e')
+            ->leftJoin('s.entreprise', 'en')->addSelect('en')
+            ->leftJoin('s.profSuivi', 'ps')->addSelect('ps')
+            ->leftJoin('s.profVisite', 'pv')->addSelect('pv')
+            ->orderBy('e.nom', 'ASC')
+            ->addOrderBy('e.prenom', 'ASC')
+            ->addOrderBy('ps.email', 'ASC')
+            ->addOrderBy('pv.email', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**

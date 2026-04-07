@@ -17,7 +17,7 @@ final class StageController extends AbstractController
     #[Route(name: 'app_stage_index', methods: ['GET'])]
     public function index(StageRepository $stageRepository): Response
     {
-        $stages = $stageRepository->findAll();
+        $stages = $stageRepository->findAllOrderBy();
         
         $entreprisesUniques = [];
         foreach ($stages as $stage) {

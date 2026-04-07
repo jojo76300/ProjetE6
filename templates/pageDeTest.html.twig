@@ -52,6 +52,12 @@
                 </form>
             </div>
 
+            <div class="mb-4 flex items-center justify-between">
+                <p class="text-sm text-slate-900 font-bold">Affichage de {{ nombreTotalEtudiants }} étudiant(s)</p>
+                <p class="text-sm text-slate-900 font-bold">Nombre de SLAM : {{ nombreEtudiantsSlam }}</p>
+                <p class="text-sm text-slate-900 font-bold">Nombre de SISR : {{ nombreEtudiantsSisr }}</p>
+            </div>
+
             <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
                 <table class="w-full text-left border-collapse">
                     <thead class="bg-slate-50 border-b border-slate-200">
@@ -69,13 +75,15 @@
                                 <td class="px-6 py-4 font-medium text-slate-900 capitalize">{{ etudiant.nom }}</td>
                                 <td class="px-6 py-4 text-slate-600">{{ etudiant.prenom }}</td>
                                 <td class="px-6 py-4">
-                                    {% if etudiant.filiere == 'SLAM' %}
+                                    {% if etudiant.filiere == 'SLAM' or etudiant.filiere == 'slam' or etudiant.filiere == 'Slam' %}
                                         <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Slam</span>
-                                    {% else %}
+                                    {% elseif etudiant.filiere == 'SISR' or etudiant.filiere == 'sisr' or etudiant.filiere == 'Sisr' %}
                                         <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Sisr</span>
+                                    {% else %}
+                                        <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Inconnu</span>
                                     {% endif %}
                                 </td>
-                                <td class="px-6 py-4 text-slate-600 text-sm italic">{{ etudiant.annPromotion }}</td>
+                                <td class="px-6 py-4 text-slate-600 text-sm italic">{{ etudiant.annPromotion.session }}</td>
                                 <td class="px-6 py-4 text-right flex justify-end gap-3">
                                     <a href="#" class="text-indigo-600 hover:bg-indigo-50 p-2 rounded-lg transition" title="Modifier">
                                         <i class="fas fa-pen"></i>

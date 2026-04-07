@@ -17,6 +17,10 @@ class Etudiant
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(targetEntity: Promotion::class)]
+    #[ORM\JoinColumn(name: 'ann_promotion', referencedColumnName: 'id', nullable: true)]
+    private ?Promotion $annPromotion = null;
+
     #[ORM\Column(length: 38)]
     private ?string $nom = null;
 
@@ -25,9 +29,6 @@ class Etudiant
 
     #[ORM\Column(length: 100)]
     private ?string $filiere = null;
-
-    #[ORM\Column(length: 30)]
-    private ?string $annPromotion = null;
 
     public function getId(): ?int
     {
@@ -70,12 +71,12 @@ class Etudiant
         return $this;
     }
 
-    public function getAnnPromotion(): ?string
+    public function getAnnPromotion(): ?Promotion
     {
         return $this->annPromotion;
     }
 
-    public function setAnnPromotion(string $annPromotion): static
+    public function setAnnPromotion(?Promotion $annPromotion): static
     {
         $this->annPromotion = $annPromotion;
 

@@ -20,10 +20,16 @@ class EtudiantController extends AbstractController
     {
         // 1. On récupère tous les étudiants en base de données
         $listeEtudiants = $etudiantRepository->findAll();
+        $nombreTotalEtudiants = $etudiantRepository->countAllEtudiants();
+        $nombreEtudiantsSlam = $etudiantRepository->countByFiliere('SLAM');
+        $nombreEtudiantsSisr = $etudiantRepository->countByFiliere('SISR');
 
         // 2. On "envoie" la variable au Twig
         return $this->render('pageDeTest.html.twig', [
-            'etudiants' => $listeEtudiants, // C'est ici que la variable est créée !
+            'etudiants' => $listeEtudiants, 
+            'nombreTotalEtudiants' => $nombreTotalEtudiants,
+            'nombreEtudiantsSlam' => $nombreEtudiantsSlam,
+            'nombreEtudiantsSisr' => $nombreEtudiantsSisr,
         ]);
     }
 }
