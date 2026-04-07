@@ -6,6 +6,8 @@ use App\Repository\StageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Talleu\TriggerMapping\Attribute\Trigger;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: StageRepository::class)]
 #[Trigger(name: 'Tri_Archive_Stage_Ajout', on: ['INSERT'], when: 'AFTER', scope: 'ROW', className: 'App\Triggers\TriArchiveStageAjout')]
@@ -130,5 +132,15 @@ class Stage
         $this->commentaire = $commentaire;
 
         return $this;
+    }
+
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context, mixed $payload): void
+    {
+        if ($this->dateDebut && $this->dateFin && $this->dateDebut > $this->dateFin) {
+            $context->buildViolation('La date de début doit être antérieure à la date de fin.')
+                ->atPath('dateDebut')
+                ->addViolation();
+        }
     }
 }
