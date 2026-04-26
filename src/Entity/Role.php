@@ -15,21 +15,26 @@ class Role
     #[ORM\Column]
     private ?int $id = null;
 
+    // Exemple : 'Administrateur', 'Professeur'
     #[ORM\Column(length: 50)]
     private ?string $libelle = null;
 
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
+    // Optionnel : libellé Symfony (ROLE_ADMIN)
+    #[ORM\Column(length: 50)]
+    private string $libelleSymfony = 'ROLE_USER';
+
     /**
      * @var Collection<int, Avoir>
      */
-    #[ORM\OneToMany(targetEntity: Avoir::class, mappedBy: 'role', orphanRemoval: true)]
-    private Collection $avoirs;
+    #[ORM\OneToMany(mappedBy: 'role', targetEntity: Avoir::class)]
+    private Collection $liensUtilisateurs;
 
     public function __construct()
     {
-        $this->avoirs = new ArrayCollection();
+        $this->liensUtilisateurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,46 +64,46 @@ class Role
         return $this;
     }
 
-    /**
-     * Retourne le rôle Symfony correspondant, par exemple:
-     * Administrateur -> ROLE_ADMIN
-     */
-    public function getSymfonyRole(): string
+    public function getLibelleSymfony(): string
     {
-        // simple mapping basé sur le libellé de ta BDD
-        return match (trim($this->libelle)) {
-            'Administrateur' => 'ROLE_ADMIN',
-            'Professeur'     => 'ROLE_TEACHER',
-            default          => 'ROLE_USER',
-        };
+        return $this->libelleSymfony;
+    }
+
+    public function setLibelleSymfony(string $libelleSymfony): static
+    {
+        $this->libelleSymfony = $libelleSymfony;
+        return $this;
     }
 
     /**
      * @return Collection<int, Avoir>
      */
-    public function getAvoirs(): Collection
+    public function getLiensUtilisateurs(): Collection
     {
-        return $this->avoirs;
+        return $this->liensUtilisateurs;
     }
 
-    public function addAvoir(Avoir $avoir): static
+    public function addLienUtilisateur(Avoir $lien): static
     {
-        if (!$this->avoirs->contains($avoir)) {
-            $this->avoirs->add($avoir);
-            $avoir->setRole($this);
+        if (!$this->liensUtilisateurs->contains($lien)) {
+            $this->liensUtilisateurs->add($lien);
+            $lien->setRole($this);
         }
-
         return $this;
     }
 
-    public function removeAvoir(Avoir $avoir): static
+    public function removeLienUtilisateur(Avoir $lien): static
     {
-        if ($this->avoirs->removeElement($avoir)) {
-            if ($avoir->getRole() === $this) {
-                $avoir->setRole(null);
+        if ($this->liensUtilisateurs->removeElement($lien)) {
+            if ($lien->getRole() === $this) {
+                $lien->setRole(null);
             }
         }
-
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->libelle ?? '';
     }
 }

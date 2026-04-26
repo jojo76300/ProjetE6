@@ -17,29 +17,54 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $prenom = null;
+
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $mdp = null;
+    #[ORM\Column(name: 'mdp', length: 255)]
+    private ?string $password = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'boolean')]
     private bool $status = true;
 
-    /**
-     * @var Collection<int, Avoir>
-     */
-    #[ORM\OneToMany(targetEntity: Avoir::class, mappedBy: 'utilisateur', orphanRemoval: true)]
-    private Collection $avoirs;
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Avoir::class, cascade: ['persist', 'remove'])]
+    private Collection $liensRoles;
 
     public function __construct()
     {
-        $this->avoirs = new ArrayCollection();
+        $this->liensRoles = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(?string $nom): static
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): static
+    {
+        $this->prenom = $prenom;
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -53,14 +78,44 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getMdp(): ?string
+    public function getUserIdentifier(): string
     {
-        return $this->mdp;
+        return (string) $this->email;
     }
 
-    public function setMdp(string $mdp): static
+    public function getUsername(): string
     {
-        $this->mdp = $mdp;
+        return (string) $this->email;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = [];
+
+        foreach ($this->liensRoles as $avoir) {
+            $role = $avoir->getRole();
+            if ($role) {
+                $roles[] = $role->getLibelleSymfony();
+            }
+        }
+
+        $roles[] = 'ROLE_USER';
+
+        return array_values(array_unique($roles));
+    }
+
+    public function eraseCredentials(): void
+    {
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
         return $this;
     }
 
@@ -75,64 +130,36 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /* === Méthodes sécurité Symfony === */
-
-    public function getUserIdentifier(): string
+    public function getLiensRoles(): Collection
     {
-        return (string) $this->email;
+        return $this->liensRoles;
     }
 
-    public function getPassword(): string
+    public function addLienRole(Avoir $lien): static
     {
-        return $this->mdp;
-    }
-
-    public function eraseCredentials(): void
-    {
-        // rien à effacer
-    }
-
-    // Si tu veux continuer à utiliser le champ json roles, tu peux le remettre,
-    // mais ta BDD actuelle n'a pas de colonne roles => on s'appuie sur Avoir/Role.
-
-    public function getRoles(): array
-    {
-        // à partir des rôles liés via Avoir
-        $roles = ['ROLE_USER'];
-
-        foreach ($this->avoirs as $avoir) {
-            $roles[] = $avoir->getRole()->getSymfonyRole();
+        if (!$this->liensRoles->contains($lien)) {
+            $this->liensRoles->add($lien);
+            $lien->setUtilisateur($this);
         }
-
-        return array_unique($roles);
-    }
-
-    /**
-     * @return Collection<int, Avoir>
-     */
-    public function getAvoirs(): Collection
-    {
-        return $this->avoirs;
-    }
-
-    public function addAvoir(Avoir $avoir): static
-    {
-        if (!$this->avoirs->contains($avoir)) {
-            $this->avoirs->add($avoir);
-            $avoir->setUtilisateur($this);
-        }
-
         return $this;
     }
 
-    public function removeAvoir(Avoir $avoir): static
+    public function removeLienRole(Avoir $lien): static
     {
-        if ($this->avoirs->removeElement($avoir)) {
-            if ($avoir->getUtilisateur() === $this) {
-                $avoir->setUtilisateur(null);
+        if ($this->liensRoles->removeElement($lien)) {
+            if ($lien->getUtilisateur() === $this) {
+                $lien->setUtilisateur(null);
             }
         }
-
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        if ($this->nom || $this->prenom) {
+            return trim(($this->prenom ?? '').' '.($this->nom ?? ''));
+        }
+
+        return (string) $this->email;
     }
 }

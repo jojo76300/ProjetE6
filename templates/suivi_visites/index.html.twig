@@ -1,0 +1,54 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Suivi & visites{% endblock %}
+
+{% block body %}
+<div class="page-wrapper">
+    <div class="page-header">
+        <h1>Gérez le suivi et les visites de stage</h1>
+        <div class="search-and-button">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Rechercher une visite ou un stage..." />
+            </div>
+            <a href="{{ path('app_suivi_visites_new') }}" class="btn-main">
+                + Planifier une visite
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>ÉTUDIANT</th>
+                    <th>ENTREPRISE</th>
+                    <th>DATE VISITE</th>
+                    <th>ENSEIGNANT VISITEUR</th>
+                    <th>COMMENTAIRES</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for v in visites %}
+                <tr>
+                    <td>{{ v.stage.etudiant.nom }} {{ v.stage.etudiant.prenom }}</td>
+                    <td>{{ v.stage.entreprise.nom }}</td>
+                    <td>{{ v.dateVisite|date('d/m/Y') }}</td>
+                    <td>{{ v.enseignantVisiteur.email }}</td>
+                    <td>{{ v.commentaires|default('—') }}</td>
+                    <td class="actions">
+                        <a href="{{ path('app_suivi_visites_edit', {'id': v.id}) }}" class="icon-btn edit">✏️</a>
+                        {{ include('suivi_visites/_delete_form.html.twig', {visite: v}) }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucune visite planifiée.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

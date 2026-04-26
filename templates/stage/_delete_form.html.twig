@@ -1,0 +1,8 @@
+{# templates/stage/_delete_form.html.twig #}
+<form method="post"
+      action="{{ path('app_stage_delete', {'id': stage.id}) }}"
+      onsubmit="return confirm('Supprimer ce stage ?');"
+      style="display:inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ stage.id) }}">
+    <button class="icon-btn delete">🗑️</button>
+</form>
