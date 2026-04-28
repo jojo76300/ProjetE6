@@ -30,6 +30,9 @@ class Etudiant
     #[ORM\Column(length: 100)]
     private ?string $filiere = null;
 
+    #[ORM\Column(name: 'is_archived', type: 'boolean')]
+    private bool $isArchived = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +71,17 @@ class Etudiant
     {
         $this->filiere = $filiere;
 
+        return $this;
+    }
+
+    public function getIsArchived(): bool
+    {
+        return $this->isArchived;
+    }
+
+    public function setIsArchived(bool $isArchived): static
+    {
+        $this->isArchived = $isArchived;
         return $this;
     }
 

@@ -94,3 +94,38 @@
     </div>
 
 {{ form_end(form) }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const etudiantSelect = document.getElementById('stage_etudiant');
+    const dateDebutInput = document.getElementById('stage_dateDebut');
+    const dateFinInput = document.getElementById('stage_dateFin');
+
+    function remplirDatesPromotion() {
+        const selectedOption = etudiantSelect.options[etudiantSelect.selectedIndex];
+
+        if (!selectedOption) {
+            return;
+        }
+
+        const dateDebut = selectedOption.getAttribute('data-date-debut');
+        const dateFin = selectedOption.getAttribute('data-date-fin');
+
+        if (dateDebut) {
+            dateDebutInput.value = dateDebut;
+        }
+
+        if (dateFin) {
+            dateFinInput.value = dateFin;
+        }
+    }
+
+    if (etudiantSelect) {
+        etudiantSelect.addEventListener('change', remplirDatesPromotion);
+
+        if (etudiantSelect.value) {
+            remplirDatesPromotion();
+        }
+    }
+});
+</script>
