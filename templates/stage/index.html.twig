@@ -63,8 +63,8 @@
                                 <td class="px-6 py-4 text-sm text-gray-600">
                                     {{ stage.dateDebut|date('d/m/Y') }} - {{ stage.dateFin|date('d/m/Y') }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profVisite.email|replace({'@school.fr': ''}) }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profSuivi.email|replace({'@school.fr': ''}) }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profVisite.nom }} {{ stage.profVisite.prenom }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ stage.profSuivi.nom }} {{ stage.profSuivi.prenom }}</td>
                                 <td class="px-6 py-4 text-sm">
                                     {% if isUpcoming %}
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-800">
@@ -101,9 +101,9 @@
                 <div class="p-12 text-center">
                     <i class="fas fa-inbox text-gray-400 text-6xl mb-4 block"></i>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucun stage trouvé</h3>
-                    <p class="text-gray-600 mb-6">Commencez par créer votre premier stage</p>
+                    <p class="text-gray-600 mb-6">Commencez par ajouter un stage</p>
                     <a href="{{ path('app_stage_new') }}" class="inline-block bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
-                        <i class="fas fa-plus mr-2"></i>Créer un stage
+                        <i class="fas fa-plus mr-2"></i>Ajouter un stage
                     </a>
                 </div>
             {% endif %}

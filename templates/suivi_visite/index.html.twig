@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des suivis & visites{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Gestion des suivis et visites de stage</h1>
+            <p class="text-gray-600">Gérez les suivis et visites de vos étudiants en stage</p>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex-1">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                            <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19 19L14.65 14.65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="Rechercher un suivi ou une visite..." 
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                </div>
+                <a href="{{ path('app_suivi_visite_new') }}" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fas fa-plus"></i>Ajouter un suivi ou une visite
+                </a>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            {% if visites|length > 0 %}
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200 bg-gray-50">
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Étudiant(e)</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Enterprise</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Date Visite</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Enseignant visiteur</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Commentaires</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for visite in visites %}
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors searchable-row" data-search="{{ visite.stage.etudiant.nom|lower }} {{ visite.stage.etudiant.prenom|lower }} {{ visite.stage.entreprise.nom|lower }} {{ visite.dateVisite|date('Y-m-d')|lower }} {{ visite.enseignantVisiteur.nom|lower }} {{ visite.enseignantVisiteur.prenom|lower }}">
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    <div class="font-medium">{{ visite.stage.etudiant.nom }} {{ visite.stage.etudiant.prenom }}</div>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ visite.stage.entreprise.nom }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ visite.dateVisite|date('d/m/Y') }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ visite.enseignantVisiteur.nom }} {{ visite.enseignantVisiteur.prenom  }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ visite.commentaires }}</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <div class="flex items-center gap-3">
+                                        <a href="{{ path('app_suivi_visite_edit', {'id': visite.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                            <i class="fas fa-edit text-lg"></i>
+                                        </a>
+                                        <form method="post" action="{{ path('app_suivi_visite_delete', {'id': visite.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer le suivi de visite de {{ visite.stage.etudiant.nom|escape('js') }} {{ visite.stage.etudiant.prenom|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ visite.id) }}">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 transition-colors">
+                                                <i class="fas fa-trash text-lg"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="p-12 text-center">
+                    <i class="fas fa-inbox text-gray-400 text-6xl mb-4 block"></i>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucun suivi de visite trouvé</h3>
+                    <p class="text-gray-600 mb-6">Commencez par ajouter un suivi de visite</p>
+                    <a href="{{ path('app_suivi_visite_new') }}" class="inline-block bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                        <i class="fas fa-plus mr-2"></i>Ajouter un suivi de visite
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('.searchable-row');
+    
+    rows.forEach(row => {
+        const searchData = row.getAttribute('data-search');
+        if (searchData.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

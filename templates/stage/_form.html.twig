@@ -3,7 +3,7 @@
         {% if form.etudiant is defined %}
             <div>
                 {{ form_label(form.etudiant, "Étudiant*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
-                {{ form_widget(form.etudiant, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {{ form_widget(form.etudiant, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'stage_etudiant'}}) }}
                 {% if form.etudiant.vars.errors|length > 0 %}
                     <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
                         <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.etudiant) }}
@@ -15,7 +15,7 @@
         {% if form.dateDebut is defined %}
             <div>
                 {{ form_label(form.dateDebut, "Date de début*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
-                {{ form_widget(form.dateDebut, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {{ form_widget(form.dateDebut, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'stage_dateDebut'}}) }}
                 {% if form.dateDebut.vars.errors|length > 0 %}
                     <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
                         <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.dateDebut) }}
@@ -27,7 +27,7 @@
         {% if form.dateFin is defined %}
             <div>
                 {{ form_label(form.dateFin, "Date de fin*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
-                {{ form_widget(form.dateFin, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {{ form_widget(form.dateFin, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'stage_dateFin'}}) }}
                 {% if form.dateFin.vars.errors|length > 0 %}
                     <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
                         <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.dateFin) }}
@@ -39,7 +39,7 @@
         {% if form.entreprise is defined %}
             <div>
                 {{ form_label(form.entreprise, "Entreprise", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
-                {{ form_widget(form.entreprise, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {{ form_widget(form.entreprise, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'stage_entreprise'}}) }}
                 {% if form.entreprise.vars.errors|length > 0 %}
                     <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
                         <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.entreprise) }}
@@ -51,7 +51,7 @@
         {% if form.profSuivi is defined %}
             <div>
                 {{ form_label(form.profSuivi, "Professeur suivi", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
-                {{ form_widget(form.profSuivi, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {{ form_widget(form.profSuivi, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'stage_profSuivi'}}) }}
                 {% if form.profSuivi.vars.errors|length > 0 %}
                     <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
                         <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.profSuivi) }}
@@ -63,7 +63,7 @@
         {% if form.profVisite is defined %}
             <div>
                 {{ form_label(form.profVisite, "Professeur visite", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
-                {{ form_widget(form.profVisite, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {{ form_widget(form.profVisite, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'stage_profVisite'}}) }}
                 {% if form.profVisite.vars.errors|length > 0 %}
                     <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
                         <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.profVisite) }}
@@ -74,7 +74,7 @@
         {% if form.commentaire is defined %}
             <div>
                 {{ form_label(form.commentaire, "Commentaire", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
-                {{ form_widget(form.commentaire, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent'}}) }}
+                {{ form_widget(form.commentaire, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'stage_commentaire'}}) }}
                 {% if form.commentaire.vars.errors|length > 0 %}
                     <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
                         <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.commentaire) }}

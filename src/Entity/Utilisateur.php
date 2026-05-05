@@ -34,6 +34,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $status = null;
 
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Avoir::class, cascade: ['persist', 'remove'])]
+    private Collection $liensRoles;
+
     /**
      * @var Collection<int, Avoir>
      */
@@ -52,11 +55,14 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Stage::class, mappedBy: 'profVisite')]
     private Collection $stagesVisite;
 
+    
+
     public function __construct()
     {
         $this->avoirs = new ArrayCollection();
         $this->stagesSuivi = new ArrayCollection();
         $this->stagesVisite = new ArrayCollection();
+        $this->liensRoles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,9 +167,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        // Par défaut, tous les utilisateurs ont le rôle ROLE_USER
-        
-        return ['ROLE_USER'];
+        $roles = [];
+
+        foreach ($this->liensRoles as $avoir) {
+            $role = $avoir->getRole();
+            if ($role) {
+                $roles[] = $role->getLibelle();
+            }
+        }
+
+        $roles[] = 'ROLE_USER';
+
+        return array_values(array_unique($roles));
     }
 
     /**
@@ -173,6 +188,30 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         
         return $this->mdp;
+    }
+
+    public function getLiensRoles(): Collection
+    {
+        return $this->liensRoles;
+    }
+
+    public function addLienRole(Avoir $lien): static
+    {
+        if (!$this->liensRoles->contains($lien)) {
+            $this->liensRoles->add($lien);
+            $lien->setUtilisateur($this);
+        }
+        return $this;
+    }
+
+    public function removeLienRole(Avoir $lien): static
+    {
+        if ($this->liensRoles->removeElement($lien)) {
+            if ($lien->getUtilisateur() === $this) {
+                $lien->setUtilisateur(null);
+            }
+        }
+        return $this;
     }
 
     /**

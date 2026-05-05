@@ -34,6 +34,17 @@ class EtudiantRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+     public function findAllOrderedByNom(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.isArchived = :arch')
+            ->setParameter('arch', false)
+            ->orderBy('e.nom', 'ASC')
+            ->addOrderBy('e.prenom', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Etudiant[] Returns an array of Etudiant objects
     //     */

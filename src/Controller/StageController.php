@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/stage')]
+#[Route('/stages')]
 final class StageController extends AbstractController
 {
     #[Route(name: 'app_stage_index', methods: ['GET'])]
@@ -47,14 +47,6 @@ final class StageController extends AbstractController
         return $this->render('stage/new.html.twig', [
             'stage' => $stage,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_stage_show', methods: ['GET'])]
-    public function show(Stage $stage): Response
-    {
-        return $this->render('stage/show.html.twig', [
-            'stage' => $stage,
         ]);
     }
 

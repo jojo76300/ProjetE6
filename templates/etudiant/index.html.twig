@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des étudiants{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Gestion des étudiants</h1>
+            <p class="text-gray-600">Gérez les étudiants et leurs affectations</p>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex-1">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                            <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19 19L14.65 14.65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="Rechercher un étudiant..." 
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+                </div>
+                <a href="{{ path('app_etudiant_new') }}" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fas fa-plus"></i>Ajouter un étudiant
+                </a>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            {% if etudiants|length > 0 %}
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200 bg-gray-50">
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Étudiant(e)</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Filière</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Promotion</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for etudiant in etudiants %}
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors searchable-row" data-search="{{ etudiant.nom|lower }} {{ etudiant.prenom|lower }} {{ etudiant.filiere|lower }} {{ etudiant.annPromotion.session|lower }}">
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    <div class="font-medium">{{ etudiant.nom }} {{ etudiant.prenom }}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    {% if etudiant.filiere == 'SLAM' or etudiant.filiere == 'slam' or etudiant.filiere == 'Slam' %}
+                                        <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Slam</span>
+                                    {% elseif etudiant.filiere == 'SISR' or etudiant.filiere == 'sisr' or etudiant.filiere == 'Sisr' %}
+                                        <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Sisr</span>
+                                    {% else %}
+                                        <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Inconnu</span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ etudiant.annPromotion.session }}</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <div class="flex items-center gap-3">
+                                        <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                            <i class="fas fa-edit text-lg"></i>
+                                        </a>
+                                        <form method="post" action="{{ path('app_etudiant_delete', {'id': etudiant.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'étudiant chez {{ etudiant.nom|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ etudiant.id) }}">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 transition-colors">
+                                                <i class="fas fa-trash text-lg"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="p-12 text-center">
+                    <i class="fas fa-inbox text-gray-400 text-6xl mb-4 block"></i>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucun étudiant trouvé</h3>
+                    <p class="text-gray-600 mb-6">Commencez par ajouter un étudiant</p>
+                    <a href="{{ path('app_etudiant_new') }}" class="inline-block bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                        <i class="fas fa-plus mr-2"></i>Ajouter un étudiant
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('.searchable-row');
+    
+    rows.forEach(row => {
+        const searchData = row.getAttribute('data-search');
+        if (searchData.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

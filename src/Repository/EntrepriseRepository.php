@@ -16,6 +16,15 @@ class EntrepriseRepository extends ServiceEntityRepository
         parent::__construct($registry, Entreprise::class);
     }
 
+    public function findAllOrderBy(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.nom', 'ASC')
+            ->addOrderBy('e.cp', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Entreprise[] Returns an array of Entreprise objects
     //     */
