@@ -67,7 +67,7 @@
                                         <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
                                             <i class="fas fa-edit text-lg"></i>
                                         </a>
-                                        <form method="post" action="{{ path('app_etudiant_delete', {'id': etudiant.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'étudiant chez {{ etudiant.nom|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
+                                        <form method="post" action="{{ path('app_etudiant_delete', {'id': etudiant.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'étudiant {{ etudiant.nom|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ etudiant.id) }}">
                                             <button type="submit" class="text-red-600 hover:text-red-800 transition-colors">
                                                 <i class="fas fa-trash text-lg"></i>

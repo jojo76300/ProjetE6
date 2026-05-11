@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la visite - {{ visite.stage.entreprise.nom }} {{ visite.stage.etudiant.nom }} {{ visite.stage.etudiant.prenom }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="{{ path('app_visite_index') }}" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-2 mb-6">
+                <i class="fas fa-arrow-left"></i>Retour à la liste
+            </a>
+
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
+                    <i class="fas fa-edit text-indigo-600 mr-3"></i>Modifier la visite
+                </h1>
+                <p class="text-gray-600">{{ visite.stage.entreprise.nom }} - {{ visite.stage.etudiant.nom }} {{ visite.stage.etudiant.prenom }}</p>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            {{ include('visite/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

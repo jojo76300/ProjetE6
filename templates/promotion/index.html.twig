@@ -28,9 +28,9 @@
                         />
                     </div>
                 </div>
-                {# <a href="{{ path('app_promotion_new') }}" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2 whitespace-nowrap"> #}
+                <a href="{{ path('app_promotion_new') }}" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2 whitespace-nowrap">
                     <i class="fas fa-plus"></i>Ajouter une promotion
-                {# </a> #}
+                </a>
             </div>
         </div>
 
@@ -58,12 +58,10 @@
                                 </td>
                                 <td class="px-6 py-4 text-left text-sm">
                                     <div class="flex items-center gap-3">
-                                        {# Route d'édition de la promotion non faite, donc j'ai laissé la route vers la modification du stage pour que la page puisse charger #}
-                                        <a href="{{ path('app_stage_edit', {'id': promotion.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                        <a href="{{ path('app_promotion_edit', {'id': promotion.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
                                             <i class="fas fa-edit text-lg"></i>
                                         </a>
-                                        {# Pareil ici avec la suppression #}
-                                        <form method="post" action="{{ path('app_stage_delete', {'id': promotion.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer la promotion de {{ promotion.session|escape('js') }} pour la classe {{ promotion.classe|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
+                                        <form method="post" action="{{ path('app_promotion_delete', {'id': promotion.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer la promotion de {{ promotion.session|escape('js') }} pour la classe {{ promotion.classe|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promotion.id) }}">
                                             <button type="submit" class="text-red-600 hover:text-red-800 transition-colors">
                                                 <i class="fas fa-trash text-lg"></i>

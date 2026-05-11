@@ -319,12 +319,10 @@
                 </a>
 
 
-                <a href="{{ path('app_suivi_visite_index') }}"
-                    class="sidebar-link {% if app.request.attributes.get('_route') starts with 'app_suivi_visite_' %}active{% endif %}">
-                    <span>Suivis & Visites</span>
+                <a href="{{ path('app_visite_index') }}"
+                    class="sidebar-link {% if app.request.attributes.get('_route') starts with 'app_visite_' %}active{% endif %}">
+                    <span>Visites</span>
                 </a>
-
-                <a href="#" class="sidebar-link"><span>Exports</span></a>
             </nav>
         </aside>
 

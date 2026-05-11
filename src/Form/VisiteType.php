@@ -23,6 +23,7 @@ class VisiteType extends AbstractType
                     return $s->getEtudiant()->getNom().' '.$s->getEtudiant()->getPrenom()
                         .' - '.$s->getEntreprise()->getNom();
                 },
+                'placeholder' => '',
                 'label' => 'Stage',
             ])
             ->add('dateVisite', DateType::class, [
@@ -34,11 +35,11 @@ class VisiteType extends AbstractType
                 'choice_label' => function (Utilisateur $u) {
                     return $u->getNom().' '.$u->getPrenom();
                 },
-                'placeholder' => 'Choisir un enseignant',
+                'placeholder' => '',
             ])
-            ->add('commentaires', TextareaType::class, [
+            ->add('commentaire', TextareaType::class, [
                 'required' => false,
-                'label' => 'Commentaires (optionnel)',
+                'label' => 'Commentaire (optionnel)',
                 'attr' => ['placeholder' => 'Informations complémentaires...'],
             ]);
     }

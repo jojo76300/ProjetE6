@@ -17,7 +17,7 @@ class Visite
     private ?\DateTimeInterface $dateVisite = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $commentaires = null;
+    private ?string $commentaire = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'stage_id', nullable: false)]
@@ -43,14 +43,14 @@ class Visite
         return $this;
     }
 
-    public function getCommentaires(): ?string
+    public function getCommentaire(): ?string
     {
-        return $this->commentaires;
+        return $this->commentaire;
     }
 
-    public function setCommentaires(?string $commentaires): static
+    public function setCommentaire(?string $commentaire): static
     {
-        $this->commentaires = $commentaires;
+        $this->commentaire = $commentaire;
         return $this;
     }
 

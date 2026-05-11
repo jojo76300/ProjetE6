@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Promotion;
 
 class EtudiantType extends AbstractType
 {
@@ -28,11 +30,16 @@ class EtudiantType extends AbstractType
                     'SLAM' => 'SLAM',
                     'SISR' => 'SISR',
                 ],
+                'placeholder' => '',
                 'attr' => ['class' => 'form-control mb-3']
             ])
-            ->add('annPromotion', TextType::class, [
+            ->add('annPromotion', EntityType::class, [
+                'class' => Promotion::class,
                 'label' => 'Année de promotion',
-                'attr' => ['class' => 'form-control mb-3', 'placeholder' => 'Ex: 2024-2026']
+                'choice_label' => function (Promotion $p) {
+                    return $p->getClasse() . ' ' . $p->getSession();
+                },
+                'placeholder' => '',
             ])
             
             // On ne met pas "isArchived" car un nouvel étudiant n'est pas archivé par défaut

@@ -1,5 +1,5 @@
 <?php
-// src/Controller/SuiviVisitesController.php
+
 namespace App\Controller;
 
 use App\Entity\Visite;
@@ -11,18 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/suivis-visites')]
-class SuiviVisiteController extends AbstractController
+#[Route('/visites')]
+class VisiteController extends AbstractController
 {
-    #[Route(name: 'app_suivi_visite_index', methods: ['GET'])]
+    #[Route(name: 'app_visite_index', methods: ['GET'])]
     public function index(VisiteRepository $repo): Response
     {
-        return $this->render('suivi_visite/index.html.twig', [
+        return $this->render('visite/index.html.twig', [
             'visites' => $repo->findAllForSuivi(),
         ]);
     }
 
-    #[Route('/new', name: 'app_suivi_visite_new', methods: ['GET','POST'])]
+    #[Route('/new', name: 'app_visite_new', methods: ['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         $visite = new Visite();
@@ -33,15 +33,15 @@ class SuiviVisiteController extends AbstractController
             $em->persist($visite);
             $em->flush();
 
-            return $this->redirectToRoute('app_suivi_visite_index');
+            return $this->redirectToRoute('app_visite_index');
         }
 
-        return $this->render('suivi_visite/new.html.twig', [
+        return $this->render('visite/new.html.twig', [
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_suivi_visite_edit', methods: ['GET','POST'])]
+    #[Route('/{id}/edit', name: 'app_visite_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Visite $visite, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(VisiteType::class, $visite);
@@ -49,15 +49,16 @@ class SuiviVisiteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            return $this->redirectToRoute('app_suivi_visite_index');
+            return $this->redirectToRoute('app_visite_index');
         }
 
-        return $this->render('suivi_visite/edit.html.twig', [
+        return $this->render('visite/edit.html.twig', [
+            'visite' => $visite,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_suivi_visite_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_visite_delete', methods: ['POST'])]
     public function delete(Request $request, Visite $visite, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete'.$visite->getId(), $request->request->get('_token'))) {
@@ -65,6 +66,6 @@ class SuiviVisiteController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('app_suivi_visite_index');
+        return $this->redirectToRoute('app_visite_index');
     }
 }

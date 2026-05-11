@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des suivis & visites{% endblock %}
+{% block title %}Gestion des visites{% endblock %}
 
 {% block body %}
 <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="mb-8">
-            <h1 class="text-4xl font-bold text-gray-900 mb-2">Gestion des suivis et visites de stage</h1>
-            <p class="text-gray-600">Gérez les suivis et visites de vos étudiants en stage</p>
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Gestion des visites de stage</h1>
+            <p class="text-gray-600">Gérez les visites de vos étudiants en stage</p>
         </div>
 
         <!-- Search and Filter Section -->
@@ -23,13 +23,13 @@
                         <input 
                             type="text" 
                             id="searchInput"
-                            placeholder="Rechercher un suivi ou une visite..." 
+                            placeholder="Rechercher une visite..." 
                             class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                 </div>
-                <a href="{{ path('app_suivi_visite_new') }}" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2 whitespace-nowrap">
-                    <i class="fas fa-plus"></i>Ajouter un suivi ou une visite
+                <a href="{{ path('app_visite_new') }}" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fas fa-plus"></i>Ajouter une visite
                 </a>
             </div>
         </div>
@@ -44,7 +44,7 @@
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Enterprise</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Date Visite</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Enseignant visiteur</th>
-                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Commentaires</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Commentaire</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Actions</th>
                         </tr>
                     </thead>
@@ -57,13 +57,13 @@
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ visite.stage.entreprise.nom }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ visite.dateVisite|date('d/m/Y') }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900">{{ visite.enseignantVisiteur.nom }} {{ visite.enseignantVisiteur.prenom  }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">{{ visite.commentaires }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">{{ visite.commentaire }}</td>
                                 <td class="px-6 py-4 text-sm">
                                     <div class="flex items-center gap-3">
-                                        <a href="{{ path('app_suivi_visite_edit', {'id': visite.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                        <a href="{{ path('app_visite_edit', {'id': visite.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">
                                             <i class="fas fa-edit text-lg"></i>
                                         </a>
-                                        <form method="post" action="{{ path('app_suivi_visite_delete', {'id': visite.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer le suivi de visite de {{ visite.stage.etudiant.nom|escape('js') }} {{ visite.stage.etudiant.prenom|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
+                                        <form method="post" action="{{ path('app_visite_delete', {'id': visite.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer la visite de {{ visite.stage.etudiant.nom|escape('js') }} {{ visite.stage.etudiant.prenom|escape('js') }} ? Cette action est irréversible.');" class="inline-block">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ visite.id) }}">
                                             <button type="submit" class="text-red-600 hover:text-red-800 transition-colors">
                                                 <i class="fas fa-trash text-lg"></i>
@@ -78,10 +78,10 @@
             {% else %}
                 <div class="p-12 text-center">
                     <i class="fas fa-inbox text-gray-400 text-6xl mb-4 block"></i>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucun suivi de visite trouvé</h3>
-                    <p class="text-gray-600 mb-6">Commencez par ajouter un suivi de visite</p>
-                    <a href="{{ path('app_suivi_visite_new') }}" class="inline-block bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
-                        <i class="fas fa-plus mr-2"></i>Ajouter un suivi de visite
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucune visite trouvée</h3>
+                    <p class="text-gray-600 mb-6">Commencez par ajouter une visite</p>
+                    <a href="{{ path('app_visite_new') }}" class="inline-block bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                        <i class="fas fa-plus mr-2"></i>Ajouter une visite
                     </a>
                 </div>
             {% endif %}

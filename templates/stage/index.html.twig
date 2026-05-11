@@ -46,6 +46,7 @@
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Prof. Visite</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Prof. Suivi</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Statut</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Commentaire</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Actions</th>
                         </tr>
                     </thead>
@@ -80,6 +81,11 @@
                                         </span>
                                     {% endif %}
                                 </td>
+                                {% if stage.commentaire is empty %}
+                                    <td class="px-6 py-4 text-sm text-gray-400 italic">Aucun commentaire</td>
+                                {% else %}
+                                    <td class="px-6 py-4 text-sm text-gray-900">{{ stage.commentaire }}</td>
+                                {% endif %}
                                 <td class="px-6 py-4 text-sm">
                                     <div class="flex items-center gap-3">
                                         <a href="{{ path('app_stage_edit', {'id': stage.id}) }}" class="text-blue-600 hover:text-blue-800 transition-colors">

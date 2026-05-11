@@ -1,4 +1,52 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="form-group">
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.nom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.adresse) }}
+        {{ form_widget(form.adresse, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.adresse) }}
+    </div>
+
+    <div class="form-group" style="flex:1;">
+        {{ form_label(form.ville) }}
+        {{ form_widget(form.ville, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.ville) }}
+    </div>
+
+    <div class="form-group" style="flex:1;">
+        {{ form_label(form.cp) }}
+        {{ form_widget(form.cp, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.cp) }}
+    </div>
+
+    <div class="form-group" style="flex:1;">
+        {{ form_label(form.contact) }}
+        {{ form_widget(form.contact, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.contact) }}
+    </div>
+
+    <div class="form-group" style="flex:1;">
+        {{ form_label(form.tel) }}
+        {{ form_widget(form.tel, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.tel) }}
+    </div>
+
+    <div class="form-group" style="flex:1;">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="flex gap-3 pt-6 border-t border-gray-200">
+        <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+            <i class="fas fa-save"></i>{{ button_label|default('Enregistrer') }}
+        </button>
+        <a href="{{ path('app_entreprise_index') }}" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 text-center flex items-center justify-center gap-2">
+            <i class="fas fa-times"></i>Annuler
+        </a>
+    </div>
 {{ form_end(form) }}

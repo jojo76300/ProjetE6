@@ -1,16 +1,28 @@
-{% extends 'dashboard/index.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle promotion{% endblock %}
+{% block title %}Ajouter une nouvelle promotion{% endblock %}
 
 {% block body %}
-<div class="modal-bg">
-    <div class="modal-card" style="max-width:720px; width:100%;">
-        <div class="modal-header">
-            <h2>Ajouter une promotion</h2>
-            <a href="{{ path('app_promotion_index') }}" class="modal-close">×</a>
+<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="{{ path('app_promotion_index') }}" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-2 mb-6">
+                <i class="fas fa-arrow-left"></i>Retour à la liste
+            </a>
+
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
+                    <i class="fas fa-plus-circle text-indigo-600 mr-3"></i>Ajouter une nouvelle promotion
+                </h1>
+                <p class="text-gray-600">Remplissez le formulaire ci-dessous pour ajouter une nouvelle promotion</p>
+            </div>
         </div>
 
-        {{ include('promotion/_form.html.twig', {form: form, button_label: 'Créer'}) }}
+        <!-- Form Container -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            {{ include('promotion/_form.html.twig', {'button_label': 'Ajouter la promotion'}) }}
+        </div>
     </div>
 </div>
 {% endblock %}

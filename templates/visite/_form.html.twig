@@ -1,0 +1,34 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.stage) }}
+        {{ form_widget(form.stage, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.stage) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.enseignantVisiteur) }}
+        {{ form_widget(form.enseignantVisiteur, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.enseignantVisiteur) }}
+    </div>
+
+    <div class="form-group" style="flex:1;">
+        {{ form_label(form.dateVisite) }}
+        {{ form_widget(form.dateVisite, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.dateVisite) }}
+    </div>
+
+    <div class="form-group" style="flex:1;">
+        {{ form_label(form.commentaire) }}
+        {{ form_widget(form.commentaire, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
+        {{ form_errors(form.commentaire) }}
+    </div>
+
+    <div class="flex gap-3 pt-6 border-t border-gray-200">
+        <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+            <i class="fas fa-save"></i>{{ button_label|default('Enregistrer') }}
+        </button>
+        <a href="{{ path('app_entreprise_index') }}" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 text-center flex items-center justify-center gap-2">
+            <i class="fas fa-times"></i>Annuler
+        </a>
+    </div>
+{{ form_end(form) }}
