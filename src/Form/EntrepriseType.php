@@ -15,7 +15,7 @@ class EntrepriseType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom de l\'entreprise',
-                'attr' => ['class' => 'form-control mb-3', 'placeholder' => 'Ex: Dupont']
+                'attr' => ['class' => 'form-control mb-3', 'placeholder' => 'Ex: Tech Solutions']
             ])
             ->add('adresse', TextType::class, [
                 'label' => 'Adresse',

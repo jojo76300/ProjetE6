@@ -1,27 +1,52 @@
-{{ form_start(form) }}
-    <div class="form-group">
-        {{ form_label(form.classe) }}
-        {{ form_widget(form.classe, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.classe) }}
-    </div>
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    <div class="space-y-4">
+        {% if form.classe is defined %}
+            <div>
+                {{ form_label(form.classe, "Classe*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.classe, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'visite_classe'}}) }}
+                {% if form.classe.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.classe) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    <div class="form-group">
-        {{ form_label(form.session) }}
-        {{ form_widget(form.session, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.session) }}
-    </div>
+        {% if form.session is defined %}
+            <div>
+                {{ form_label(form.session, "Session*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.session, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'visite_session'}}) }}
+                {% if form.session.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.session) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    <div style="display:flex; gap:1rem;">
-        <div class="form-group" style="flex:1;">
-            {{ form_label(form.dateDebutStage) }}
-            {{ form_widget(form.dateDebutStage, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-            {{ form_errors(form.dateDebutStage) }}
-        </div>
-        <div class="form-group" style="flex:1;">
-            {{ form_label(form.dateFinStage) }}
-            {{ form_widget(form.dateFinStage, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-            {{ form_errors(form.dateFinStage) }}
-        </div>
+        {% if form.dateDebutStage is defined %}
+            <div>
+                {{ form_label(form.dateDebutStage, "Date de début de stage*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.dateDebutStage, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'visite_dateDebutStage'}}) }}
+                {% if form.dateDebutStage.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.dateDebutStage) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if form.dateFinStage is defined %}
+            <div>
+                {{ form_label(form.dateFinStage, "Date de fin de stage", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.dateFinStage, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'visite_dateFinStage'}}) }}
+                {% if form.dateFinStage.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.dateFinStage) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 
     <div class="flex gap-3 pt-6 border-t border-gray-200">
@@ -32,4 +57,5 @@
             <i class="fas fa-times"></i>Annuler
         </a>
     </div>
+
 {{ form_end(form) }}

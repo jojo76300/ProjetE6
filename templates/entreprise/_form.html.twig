@@ -1,44 +1,88 @@
-{{ form_start(form) }}
-    <div class="form-group">
-        {{ form_label(form.nom) }}
-        {{ form_widget(form.nom, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.nom) }}
-    </div>
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    <div class="space-y-4">
+        {% if form.nom is defined %}
+            <div>
+                {{ form_label(form.nom, "Nom*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.nom, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'entreprise_nom'}}) }}
+                {% if form.nom.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.nom) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    <div class="form-group">
-        {{ form_label(form.adresse) }}
-        {{ form_widget(form.adresse, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.adresse) }}
-    </div>
+        {% if form.adresse is defined %}
+            <div>
+                {{ form_label(form.adresse, "Adresse*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.adresse, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'entreprise_adresse'}}) }}
+                {% if form.adresse.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.adresse) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    <div class="form-group" style="flex:1;">
-        {{ form_label(form.ville) }}
-        {{ form_widget(form.ville, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.ville) }}
-    </div>
+        {% if form.ville is defined %}
+            <div>
+                {{ form_label(form.ville, "Ville*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.ville, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'entreprise_ville'}}) }}
+                {% if form.ville.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.ville) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    <div class="form-group" style="flex:1;">
-        {{ form_label(form.cp) }}
-        {{ form_widget(form.cp, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.cp) }}
-    </div>
+        {% if form.cp is defined %}
+            <div>
+                {{ form_label(form.cp, "Code postal*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.cp, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'entreprise_cp'}}) }}
+                {% if form.cp.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.cp) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    <div class="form-group" style="flex:1;">
-        {{ form_label(form.contact) }}
-        {{ form_widget(form.contact, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.contact) }}
-    </div>
+        {% if form.contact is defined %}
+            <div>
+                {{ form_label(form.contact, "Contact*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.contact, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'entreprise_contact'}}) }}
+                {% if form.contact.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.contact) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    <div class="form-group" style="flex:1;">
-        {{ form_label(form.tel) }}
-        {{ form_widget(form.tel, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.tel) }}
-    </div>
+        {% if form.tel is defined %}
+            <div>
+                {{ form_label(form.tel, "Téléphone*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.tel, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'entreprise_tel'}}) }}
+                {% if form.tel.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.tel) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-    <div class="form-group" style="flex:1;">
-        {{ form_label(form.email) }}
-        {{ form_widget(form.email, {'attr': {'class': 'input-text', 'required': 'required'}}) }}
-        {{ form_errors(form.email) }}
+        {% if form.email is defined %}
+            <div>
+                {{ form_label(form.email, "Email*", {'label_attr': {'class': 'block text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent', 'id': 'entreprise_email'}}) }}
+                {% if form.email.vars.errors|length > 0 %}
+                    <div class="text-red-600 text-sm mt-1 flex items-center gap-1">
+                        <i class="fas fa-exclamation-circle"></i>{{ form_errors(form.email) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 
     <div class="flex gap-3 pt-6 border-t border-gray-200">
@@ -49,4 +93,5 @@
             <i class="fas fa-times"></i>Annuler
         </a>
     </div>
+
 {{ form_end(form) }}
