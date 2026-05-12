@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un nouvel utilisateur{% endblock %}
+
+{% block body %}
+<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="{{ path('app_stage_index') }}" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-2 mb-6">
+                <i class="fas fa-arrow-left"></i>Retour au dashboard
+            </a>
+
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
+                    <i class="fas fa-user-plus text-indigo-600 mr-3"></i>Ajouter un nouvel utilisateur
+                </h1>
+                <p class="text-gray-600">Remplissez le formulaire ci-dessous pour ajouter un nouvel utilisateur</p>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            {{ include('utilisateur/_form.html.twig', {'button_label': 'Ajouter l\'utilisateur'}) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

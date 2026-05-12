@@ -34,6 +34,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $status = null;
 
+    #[ORM\ManyToOne(inversedBy: 'roles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Role $role = null;
+
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Avoir::class, cascade: ['persist', 'remove'])]
     private Collection $liensRoles;
 
@@ -124,6 +128,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStatus(bool $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?Role $role): static
+    {
+        $this->role = $role;
 
         return $this;
     }
