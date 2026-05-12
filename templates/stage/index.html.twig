@@ -55,7 +55,7 @@
                             {# Le isActive et isUpcoming est temporaire le temps de le rajouter dans la base de données #}
                             {% set isUpcoming = stage.dateDebut|date('Y-m-d') > 'now'|date('Y-m-d') %}
                             {% set isActive = stage.dateDebut|date('Y-m-d') <= 'now'|date('Y-m-d') and stage.dateFin|date('Y-m-d') >= 'now'|date('Y-m-d') %}
-                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors searchable-row" data-search="{{ stage.etudiant.nom|lower }} {{ stage.etudiant.prenom|lower }} {{ stage.entreprise.nom|lower }} {{ stage.profSuivi.email|lower }} {{ stage.dateDebut|date('Y-m-d')|lower }}">
+                            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors searchable-row" data-search="{{ stage.etudiant.nom|lower }} {{ stage.etudiant.prenom|lower }} {{ stage.entreprise.nom|lower }} {{ stage.profSuivi.email|lower }} {{ stage.dateDebut|date('Y-m-d')|lower }} {{ isActive ? 'en cours' : (isUpcoming ? 'à venir' : 'terminé') }}">
                                 <td class="px-6 py-4 text-sm text-gray-900">
                                     <div class="font-medium">{{ stage.etudiant.nom }} {{ stage.etudiant.prenom }}</div>
                                     <div class="text-gray-600 text-xs">{{ stage.etudiant.filiere }}</div>
