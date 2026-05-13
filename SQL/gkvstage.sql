@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 02 avr. 2026 à 08:08
+-- Généré le : mer. 13 mai 2026 à 10:24
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `archive_etudiant` (
   `is_archived_new` tinyint(1) NOT NULL,
   `date_changement` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `archive_etudiant`
@@ -113,7 +113,11 @@ INSERT INTO `archive_etudiant` (`id`, `id_etudiant`, `type`, `nom_old`, `nom_new
 (43, 9, 'Modification', 'Fontaine', 'Fontaine', 'David', 'David', 'SLAM', 'SLAM', '0', '1', 0, 0, '2026-04-02 08:42:34'),
 (44, 10, 'Modification', 'Rousseau', 'Rousseau', 'Emma', 'Emma', 'SLAM', 'SLAM', '0', '2', 0, 0, '2026-04-02 08:42:34'),
 (45, 105, 'Modification', 'test', 'test', 'test', 'test', 'test', 'test', '0', '2', 0, 0, '2026-04-02 08:42:34'),
-(46, 107, 'Modification', 'nom', 'nom', 'prenom', 'prenom', 'slam', 'slam', '0', '1', 0, 0, '2026-04-02 08:42:34');
+(46, 107, 'Modification', 'nom', 'nom', 'prenom', 'prenom', 'slam', 'slam', '0', '1', 0, 0, '2026-04-02 08:42:34'),
+(47, 109, 'Ajout', '', 'Dupont', '', 'Marie', '', 'SLAM', '', '1', 0, 0, '2026-05-07 08:54:46'),
+(48, 110, 'Ajout', '', 'Dupont', '', 'fsds', '', 'SLAM', '', '1', 0, 0, '2026-05-07 08:54:59'),
+(49, 110, 'Modification', 'Dupont', 'Dupont', 'fsds', 'fsds', 'SLAM', 'SLAM', '1', '1', 0, 1, '2026-05-07 08:55:08'),
+(50, 109, 'Modification', 'Dupont', 'Dupont', 'Marie', 'Marie', 'SLAM', 'SISR', '1', '1', 0, 0, '2026-05-07 09:24:18');
 
 --
 -- Déclencheurs `archive_etudiant`
@@ -152,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `archive_stage` (
   `etudiant_id_new` int NOT NULL,
   `date_changement` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `archive_stage`
@@ -169,7 +173,10 @@ INSERT INTO `archive_stage` (`id`, `id_stage`, `type`, `date_debut_old`, `date_d
 (8, 14, 'Modification', '2000-02-02', '2026-04-01', '2026-04-02', '2026-04-02', 5, 5, 5, 5, 6, 6, 6, 6, '2026-03-26 08:29:45'),
 (9, 14, 'Suppression', '2026-04-01', '0000-00-00', '2026-04-02', '0000-00-00', 5, 0, 5, 0, 6, 0, 6, 0, '2026-03-26 09:58:12'),
 (10, 15, 'Ajout', '0000-00-00', '5000-05-05', '0000-00-00', '2026-03-28', 0, 5, 0, 5, 0, 5, 0, 6, '2026-03-26 09:58:38'),
-(11, 15, 'Modification', '5000-05-05', '2025-05-05', '2026-03-28', '2026-03-28', 5, 5, 5, 5, 5, 5, 6, 6, '2026-03-26 09:58:53');
+(11, 15, 'Modification', '5000-05-05', '2025-05-05', '2026-03-28', '2026-03-28', 5, 5, 5, 5, 5, 5, 6, 6, '2026-03-26 09:58:53'),
+(12, 16, 'Ajout', '0000-00-00', '2000-10-10', '0000-00-00', '2000-11-10', 0, 6, 0, 5, 0, 5, 0, 9, '2026-04-07 11:19:40'),
+(13, 16, 'Suppression', '2000-10-10', '0000-00-00', '2000-11-10', '0000-00-00', 6, 0, 5, 0, 5, 0, 9, 0, '2026-04-07 11:19:50'),
+(14, 18, 'Ajout', '0000-00-00', '2006-05-05', '0000-00-00', '2030-05-06', 0, 6, 0, 7, 0, 6, 0, 6, '2026-05-07 08:49:31');
 
 --
 -- Déclencheurs `archive_stage`
@@ -197,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `avoir` (
   PRIMARY KEY (`id`),
   KEY `IDX_659B1A43FB88E14F` (`utilisateur_id`),
   KEY `IDX_659B1A43D60322AC` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `avoir`
@@ -207,7 +214,9 @@ INSERT INTO `avoir` (`id`, `utilisateur_id`, `role_id`) VALUES
 (5, 5, 4),
 (6, 6, 5),
 (7, 7, 5),
-(8, 8, 5);
+(8, 8, 5),
+(9, 9, 4),
+(10, 10, 5);
 
 -- --------------------------------------------------------
 
@@ -232,7 +241,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20260310094312', '2026-03-10 09:43:34', 73),
 ('DoctrineMigrations\\Version20260316074714', '2026-03-16 07:47:24', 168),
 ('DoctrineMigrations\\Version20260319084539', '2026-03-24 07:52:51', 7),
-('DoctrineMigrations\\Version20260402063313', '2026-04-02 06:36:23', 76);
+('DoctrineMigrations\\Version20260402063313', '2026-04-02 06:36:23', 76),
+('DoctrineMigrations\\Version20260407092843', '2026-04-07 09:29:14', 283);
 
 -- --------------------------------------------------------
 
@@ -303,11 +313,11 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `nom` varchar(38) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(38) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `filiere` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ann_promotion` int NOT NULL,
+  `ann_promotion` int DEFAULT NULL,
   `is_archived` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_EtudiantPromotion` (`ann_promotion`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_717E22E370DBF3CB` (`ann_promotion`)
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `etudiant`
@@ -320,7 +330,10 @@ INSERT INTO `etudiant` (`id`, `nom`, `prenom`, `filiere`, `ann_promotion`, `is_a
 (9, 'Fontaine', 'David', 'SLAM', 1, 0),
 (10, 'Rousseau', 'Emma', 'SLAM', 2, 0),
 (105, 'test', 'test', 'test', 2, 0),
-(107, 'nom', 'prenom', 'slam', 1, 0);
+(107, 'nom', 'prenom', 'slam', 1, 0),
+(108, 'gregqs', 'fgqdfgrt', 'gf', 2, 1),
+(109, 'Dupont', 'Marie', 'SISR', 1, 0),
+(110, 'Dupont', 'fsds', 'SLAM', 1, 1);
 
 --
 -- Déclencheurs `etudiant`
@@ -366,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `history` (
   KEY `IDX_27BA704B4EE739A4` (`idarchiveentreprise`),
   KEY `IDX_27BA704BE9D34AE0` (`idarchivestage`),
   KEY `IDX_27BA704B8909C2E8` (`idarchiveetudiant`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `history`
@@ -395,26 +408,14 @@ INSERT INTO `history` (`id`, `idarchiveetudiant`, `idarchiveentreprise`, `idarch
 (54, 43, NULL, NULL),
 (55, 44, NULL, NULL),
 (56, 45, NULL, NULL),
-(57, 46, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `messenger_messages`
---
-
-DROP TABLE IF EXISTS `messenger_messages`;
-CREATE TABLE IF NOT EXISTS `messenger_messages` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `headers` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue_name` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `available_at` datetime NOT NULL,
-  `delivered_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_75EA56E0FB7336F0E3BD61CE16BA31DBBF396750` (`queue_name`,`available_at`,`delivered_at`,`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(57, 46, NULL, NULL),
+(58, NULL, NULL, 12),
+(59, NULL, NULL, 13),
+(60, NULL, NULL, 14),
+(61, 47, NULL, NULL),
+(62, 48, NULL, NULL),
+(63, 49, NULL, NULL),
+(64, 50, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -459,9 +460,9 @@ CREATE TABLE IF NOT EXISTS `role` (
 --
 
 INSERT INTO `role` (`id`, `libelle`, `description`) VALUES
-(4, 'Administrateur', 'Accès complet à l\'application'),
-(5, 'Professeur', 'Peut suivre et visiter les stages des étudiants'),
-(6, 'Étudiant', 'Peut consulter ses stages');
+(4, 'ROLE_ADMIN', 'Accès complet à l\'application'),
+(5, 'ROLE_TEACHER', 'Peut suivre et visiter les stages des étudiants'),
+(6, 'ROLE_USER', 'Peut consulter ses stages');
 
 -- --------------------------------------------------------
 
@@ -478,13 +479,13 @@ CREATE TABLE IF NOT EXISTS `stage` (
   `prof_suivi_id` int NOT NULL,
   `prof_visite_id` int NOT NULL,
   `etudiant_id` int NOT NULL,
-  `commentaire` text COLLATE utf8mb4_unicode_ci,
+  `commentaire` longtext COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `IDX_C27C9369A4AEAFEA` (`entreprise_id`),
   KEY `IDX_C27C9369D5073BAA` (`prof_suivi_id`),
   KEY `IDX_C27C93696C08B97D` (`prof_visite_id`),
   KEY `IDX_C27C9369DDEAB1A3` (`etudiant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `stage`
@@ -496,7 +497,9 @@ INSERT INTO `stage` (`id`, `date_debut`, `date_fin`, `entreprise_id`, `prof_suiv
 (8, '2025-02-01', '2025-05-31', 7, 7, 6, 8, NULL),
 (9, '2024-09-15', '2024-12-20', 8, 8, 7, 9, NULL),
 (11, '2000-10-10', '2000-02-19', 7, 6, 7, 10, NULL),
-(15, '2025-05-05', '2026-03-28', 5, 5, 5, 6, NULL);
+(15, '2025-05-05', '2026-03-28', 5, 5, 5, 6, NULL),
+(17, '2026-04-15', '2026-04-23', 7, 5, 5, 6, NULL),
+(18, '2006-05-05', '2030-05-06', 6, 7, 6, 6, 'first');
 
 --
 -- Déclencheurs `stage`
@@ -536,46 +539,61 @@ DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(38) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prenom` varchar(38) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mdp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint NOT NULL,
+  `role_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_1D1C63B3E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `UNIQ_1D1C63B3E7927C74` (`email`),
+  KEY `FK_RoleUtil` (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id`, `email`, `mdp`, `status`) VALUES
-(5, 'admin@school.fr', '$2y$13$dM7pIgFZ1qMcthn1T3wkmOuBs2j9ZM2ARVPPXtdC4qAbRgs4aJvAW', 1),
-(6, 'dupont.jean@school.fr', '$2y$13$wxXWwxPPx2oLsVIKZoQUp.F/APJLFoB6zx4ugBWMZUPeUvWjVnhM6', 1),
-(7, 'martin.sophie@school.fr', '$2y$13$9YUSSgw6seA6.zHYfhh2QOnWqunknxQ80WC/4XKa3s9cw6uU78bR6', 1),
-(8, 'bernard.michel@school.fr', '$2y$13$whiacgONbga.KCg.yXhqCuRA0jTPdjPnn822ffGpLkklB4IYu2Gzi', 1);
+INSERT INTO `utilisateur` (`id`, `email`, `nom`, `prenom`, `mdp`, `status`, `role_id`) VALUES
+(5, 'admin@school.fr', 'Admin', 'Admin', '$2y$13$dM7pIgFZ1qMcthn1T3wkmOuBs2j9ZM2ARVPPXtdC4qAbRgs4aJvAW', 1, 4),
+(6, 'dupont.jean@school.fr', 'Dupont', 'Jean', '$2y$13$wxXWwxPPx2oLsVIKZoQUp.F/APJLFoB6zx4ugBWMZUPeUvWjVnhM6', 1, 5),
+(7, 'martin.sophie@school.fr', 'Martin', 'Sophie', '$2y$13$9YUSSgw6seA6.zHYfhh2QOnWqunknxQ80WC/4XKa3s9cw6uU78bR6', 1, 5),
+(8, 'bernard.michel@school.fr', 'Bernard', 'Michel', '$2y$13$whiacgONbga.KCg.yXhqCuRA0jTPdjPnn822ffGpLkklB4IYu2Gzi', 1, 6),
+(9, 'bocba@cba.fr', 'Compte', 'Admin', '$2y$13$mUarho4DNqwYjvCyQzoGMOxLozdhU3V3SkrlCVsyvEN/3nAPdHGhi', 1, 4),
+(10, 'focba@cba.fr', 'Compte', 'Prof', '$2y$13$YPJgvXfChREaTaIA7uYUc.kJ2rnpRhMzDbJcKtFThUlIQhjij9qfS', 1, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `visite`
+--
+
+DROP TABLE IF EXISTS `visite`;
+CREATE TABLE IF NOT EXISTS `visite` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `date_visite` date NOT NULL,
+  `commentaire` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `stage_id` int NOT NULL,
+  `prof_visite_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_SuiviStage` (`stage_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `visite`
+--
+
+INSERT INTO `visite` (`id`, `date_visite`, `commentaire`, `stage_id`, `prof_visite_id`) VALUES
+(1, '2026-05-14', 'c tré bi1!', 8, 5);
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
--- Contraintes pour la table `avoir`
---
-ALTER TABLE `avoir`
-  ADD CONSTRAINT `FK_659B1A43D60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
-  ADD CONSTRAINT `FK_659B1A43FB88E14F` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`);
-
---
 -- Contraintes pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
   ADD CONSTRAINT `FK_EtudiantPromotion` FOREIGN KEY (`ann_promotion`) REFERENCES `promotion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Contraintes pour la table `history`
---
-ALTER TABLE `history`
-  ADD CONSTRAINT `FK_HistoriqueEntreprise` FOREIGN KEY (`idarchiveentreprise`) REFERENCES `archive_entreprise` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `FK_HistoriqueEtudiant` FOREIGN KEY (`idarchiveetudiant`) REFERENCES `archive_etudiant` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `FK_HistoriqueStage` FOREIGN KEY (`idarchivestage`) REFERENCES `archive_stage` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Contraintes pour la table `stage`
@@ -585,6 +603,18 @@ ALTER TABLE `stage`
   ADD CONSTRAINT `FK_C27C9369A4AEAFEA` FOREIGN KEY (`entreprise_id`) REFERENCES `entreprise` (`id`),
   ADD CONSTRAINT `FK_C27C9369D5073BAA` FOREIGN KEY (`prof_suivi_id`) REFERENCES `utilisateur` (`id`),
   ADD CONSTRAINT `FK_C27C9369DDEAB1A3` FOREIGN KEY (`etudiant_id`) REFERENCES `etudiant` (`id`);
+
+--
+-- Contraintes pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD CONSTRAINT `FK_RoleUtil` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Contraintes pour la table `visite`
+--
+ALTER TABLE `visite`
+  ADD CONSTRAINT `FK_SuiviStage` FOREIGN KEY (`stage_id`) REFERENCES `stage` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
