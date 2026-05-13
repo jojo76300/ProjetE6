@@ -33,7 +33,7 @@ composer install
 3. Importer la base de données
 
 ```bash
-Chercher le fichier gkv.sql dans le dossier SQL
+Chercher le fichier gkvstage.sql dans le dossier SQL
 Importer ce fichier dans un SGBDR (de préférence, phpmyadmin)
 ```
 
