@@ -34,7 +34,7 @@ composer install
 
 ```bash
 Chercher le fichier gkv.sql dans le dossier SQL
-Importer dans un SGBDR (de préférence, phpmyadmin)
+Importer ce fichier dans un SGBDR (de préférence, phpmyadmin)
 ```
 
 ## Lancer l'application
@@ -48,7 +48,3 @@ Puis ouvrir:
 ```text
 http://127.0.0.1:8000
 ```
-
----
-
-Bonne utilisation du projet !
